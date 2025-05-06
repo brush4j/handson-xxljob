@@ -7,6 +7,9 @@ import java.util.List;
  */
 public class XxlJobInfo {
 
+    //定时任务主键id
+    private int id;
+
     //定时任务的方法名称
     private String executorHandler;
 
@@ -15,6 +18,14 @@ public class XxlJobInfo {
 
     //定时任务部署的服务器ip地址的集合
     private List<String> registryList;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getExecutorHandler() {
         return executorHandler;

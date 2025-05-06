@@ -1,4 +1,4 @@
-package com.cqfy.xxl.job.admin;
+package com.cqfy.xxl.job.admin.model;
 
 import java.io.Serializable;
 

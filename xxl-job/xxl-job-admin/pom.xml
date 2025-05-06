@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.example</groupId>
-        <artifactId>xxl-job-01</artifactId>
+        <artifactId>xxl-job</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>xxl-job-admin-01</artifactId>
+    <artifactId>xxl-job-admin</artifactId>
     <packaging>jar</packaging>
 
     <properties>
@@ -82,7 +82,7 @@
         </dependency>
         <dependency>
             <groupId>org.example</groupId>
-            <artifactId>xxl-job-core-01</artifactId>
+            <artifactId>xxl-job-core</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
