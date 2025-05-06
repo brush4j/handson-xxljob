@@ -1,6 +1,6 @@
 # handson-xxljob
 手写xxljob框架采用多分支开发，每个分支都是可运行的程度：
-- xxljob-01：论述调度中心的必要性，给出样例程序
+- xxljob-01：论述调度中心的必要性，给出样例程序`JobScheduleHelper`
 - xxljob-02：调度中心引入任务执行触发器`XxlJobTrigger`实现HTTP请求（回调）目标执行器任务，同时引入快慢双线程池避免短耗时的目标任务被阻塞
 - 更多分支，持续更新中
 
