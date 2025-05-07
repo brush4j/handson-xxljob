@@ -1,7 +1,7 @@
-package com.cqfy.xxl.job.admin.scheduler;
+package com.cqfy.xxl.job.admin.core.scheduler;
 
-import com.cqfy.xxl.job.admin.thread.JobScheduleHelper;
-import com.cqfy.xxl.job.admin.thread.JobTriggerPoolHelper;
+import com.cqfy.xxl.job.admin.core.thread.JobScheduleHelper;
+import com.cqfy.xxl.job.admin.core.thread.JobTriggerPoolHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

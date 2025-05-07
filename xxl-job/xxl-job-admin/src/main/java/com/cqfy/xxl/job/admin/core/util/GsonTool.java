@@ -1,4 +1,4 @@
-package com.cqfy.xxl.job.admin.util;
+package com.cqfy.xxl.job.admin.core.util;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -10,7 +10,7 @@ import java.util.List;
 
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/12
  * @Description:实体类和json转换的工具类

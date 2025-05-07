@@ -1,6 +1,6 @@
 package com.cqfy.xxl.job.admin;
 
-import com.cqfy.xxl.job.admin.scheduler.XxlJobScheduler;
+import com.cqfy.xxl.job.admin.core.scheduler.XxlJobScheduler;
 
 public class Test {
 

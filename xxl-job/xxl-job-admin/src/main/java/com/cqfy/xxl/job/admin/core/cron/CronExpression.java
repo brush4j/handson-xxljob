@@ -15,7 +15,7 @@
  * 
  */
 
-package com.cqfy.xxl.job.admin.cron;
+package com.cqfy.xxl.job.admin.core.cron;
 
 import java.io.Serializable;
 import java.text.ParseException;
