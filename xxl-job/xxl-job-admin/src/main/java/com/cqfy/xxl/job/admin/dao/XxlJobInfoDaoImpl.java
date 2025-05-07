@@ -17,4 +17,9 @@ public class XxlJobInfoDaoImpl implements XxlJobInfoDao{
     public List findAll() {
         return List.of();
     }
+
+    @Override
+    public List<XxlJobInfo> scheduleJobQuery(long maxNextTime) {
+        return List.of();
+    }
 }
