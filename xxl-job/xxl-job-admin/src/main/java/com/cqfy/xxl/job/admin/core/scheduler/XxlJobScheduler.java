@@ -17,4 +17,17 @@ public class XxlJobScheduler {
         //的信息提交给线程池
         JobScheduleHelper.getInstance().start();
     }
+    /**
+     * @author:halfmoonly
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/2
+     * @Description:释放资源的方法
+     */
+    public void destroy() throws Exception {
+
+        JobScheduleHelper.getInstance().toStop();
+
+        JobTriggerPoolHelper.toStop();
+
+    }
 }

@@ -5,17 +5,22 @@ import com.cqfy.xxl.job.admin.core.model.XxlJobGroup;
 import com.cqfy.xxl.job.admin.core.model.XxlJobInfo;
 import com.cqfy.xxl.job.admin.core.scheduler.XxlJobScheduler;
 import com.cqfy.xxl.job.admin.core.util.I18nUtil;
-import com.cqfy.xxl.job.core.biz.ExecutorBiz;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
 import com.cqfy.xxl.job.core.biz.model.TriggerParam;
+import com.cqfy.xxl.job.core.util.GsonTool;
 import com.cqfy.xxl.job.core.util.ThrowableUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/3
  * @Description:该类也是xxl-job中很重要的一个类，job的远程调用就是在该类中进行的，当然不是直接进行，远程调用
@@ -27,7 +32,7 @@ public class XxlJobTrigger {
     private static Logger logger = LoggerFactory.getLogger(XxlJobTrigger.class);
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/3
      * @Description:该方法是远程调用前的准备阶段，在该方法内，如果用户自己设置了执行器的地址和执行器的任务参数，
@@ -78,7 +83,7 @@ public class XxlJobTrigger {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/3
      * @Description:该方法会判断字符串的内容是不是数字
@@ -94,7 +99,7 @@ public class XxlJobTrigger {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/3
      * @Description:在该方法中会进一步处理分片和路由策略
@@ -136,30 +141,84 @@ public class XxlJobTrigger {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/4
      * @Description:该方法内进行远程调用
      */
     public static ReturnT<String> runExecutor(TriggerParam triggerParam, String address){
-        ReturnT<String> runResult = null;
+        //在这个方法中把消息发送给定时任务执行程序
+        HttpURLConnection connection = null;
+        BufferedReader bufferedReader = null;
         try {
-            //获取一个用于远程调用的客户端对象，一个地址就对应着一个客户端，为什么说是客户端，因为远程调用的时候，执行器
-            //就成为了服务端，因为执行器要接收来自客户端的调用消息
-            ExecutorBiz executorBiz = XxlJobScheduler.getExecutorBiz(address);
-            //客户端获得之后，就在run方法内进行远程调用了
-            runResult = executorBiz.run(triggerParam);
+            //创建链接
+            URL realUrl = new URL(address);
+            //得到连接
+            connection = (HttpURLConnection) realUrl.openConnection();
+            //设置连接属性
+            //post请求
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.setDoInput(true);
+            connection.setUseCaches(false);
+            connection.setReadTimeout(3 * 1000);
+            connection.setConnectTimeout(3 * 1000);
+            connection.setRequestProperty("connection", "Keep-Alive");
+            connection.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
+            connection.setRequestProperty("Accept-Charset", "application/json;charset=UTF-8");
+            //进行连接
+            connection.connect();
+            //判断请求体是否为null
+            if (triggerParam != null) {
+                //序列化请求体，也就是要发送的触发参数
+                String requestBody = GsonTool.toJson(triggerParam);
+                //下面就开始正式发送消息了
+                DataOutputStream dataOutputStream = new DataOutputStream(connection.getOutputStream());
+                dataOutputStream.write(requestBody.getBytes("UTF-8"));
+                //刷新缓冲区
+                dataOutputStream.flush();
+                //释放资源
+                dataOutputStream.close();
+            }
+            //获取响应码
+            int statusCode = connection.getResponseCode();
+            if (statusCode != 200) {
+                //设置失败结果
+                return new ReturnT<String>(ReturnT.FAIL_CODE, "xxl-job remoting fail, StatusCode("+ statusCode +") invalid. for url : " + realUrl);
+            }
+            //下面就开始接收返回的结果了
+            bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
+            StringBuilder result = new StringBuilder();
+            String line;
+            //接收返回信息
+            while ((line = bufferedReader.readLine()) != null) {
+                result.append(line);
+            }
+            //转换为字符串
+            String resultJson = result.toString();
+            try {
+                //转换为ReturnT对象，返回给用户
+                ReturnT returnT = GsonTool.fromJson(resultJson, ReturnT.class);
+                return returnT;
+            } catch (Exception e) {
+                logger.error("xxl-job remoting (url="+realUrl+") response content invalid("+ resultJson +").", e);
+                return new ReturnT<String>(ReturnT.FAIL_CODE, "xxl-job remoting (url="+realUrl+") response content invalid("+ resultJson +").");
+            }
         } catch (Exception e) {
-            logger.error(">>>>>>>>>>> xxl-job trigger error, please check if the executor[{}] is running.", address, e);
-            runResult = new ReturnT<String>(ReturnT.FAIL_CODE, ThrowableUtil.toString(e));
+            logger.error(e.getMessage(), e);
+            return new ReturnT<String>(ReturnT.FAIL_CODE, "xxl-job remoting error("+ e.getMessage() +"), for url : " );
+        } finally {
+            try {
+                if (bufferedReader != null) {
+                    bufferedReader.close();
+                }
+                if (connection != null) {
+                    connection.disconnect();
+                }
+            } catch (Exception e2) {
+                logger.error(e2.getMessage(), e2);
+            }
         }
-        //在这里拼接一下远程调用返回的状态码和消息
-        StringBuffer runResultSB = new StringBuffer(I18nUtil.getString("jobconf_trigger_run") + "：");
-        runResultSB.append("<br>address：").append(address);
-        runResultSB.append("<br>code：").append(runResult.getCode());
-        runResultSB.append("<br>msg：").append(runResult.getMsg());
-        runResult.setMsg(runResultSB.toString());
-        return runResult;
     }
 
 }
