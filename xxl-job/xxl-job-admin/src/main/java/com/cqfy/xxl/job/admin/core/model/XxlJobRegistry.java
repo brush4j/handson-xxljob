@@ -7,6 +7,10 @@ import java.util.Date;
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/11
  * @Description:调度中心持有注册过来的执行器的实体类
+ *
+ *
+ * xxl_job_registry表中的registry_value字段用于存储单个执行器实例的地址（例如IP和端口），
+ * 分布式环境中支持多副本执行器，则会在该表中增加多条同执行器的记录，只是registryValue不同
  */
 public class XxlJobRegistry {
     //执行器id
