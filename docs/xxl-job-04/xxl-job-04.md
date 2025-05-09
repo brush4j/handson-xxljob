@@ -1,4 +1,4 @@
-本节初始化了xxljob脚本，一共八张表：
+本节初始化了xxljob脚本，初步搭建出admin管理界面，一共八张表：
 - xxl_job_lock 任务调度锁表； 
 - xxl_job_group 执行器信息表： 
 - xxl_job_info 任务信息表： 
