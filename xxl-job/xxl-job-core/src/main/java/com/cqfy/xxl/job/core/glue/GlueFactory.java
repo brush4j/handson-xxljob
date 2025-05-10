@@ -10,7 +10,7 @@
 //import java.util.concurrent.ConcurrentMap;
 //
 ///**
-// * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+// * @author:Halfmoonly
 // * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 // * @Date:2023/7/12
 // * @Description:运行模式工厂，这个版本代码中还用不到这个类，所以暂时不讲

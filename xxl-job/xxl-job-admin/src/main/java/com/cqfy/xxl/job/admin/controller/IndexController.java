@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/11
  * @Description:该类对应的就是运行报表那个界面
@@ -38,7 +38,7 @@ public class IndexController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:刚进去的页面，所有信息都会呈现在页面上
@@ -53,7 +53,7 @@ public class IndexController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:获取调度报表
@@ -67,7 +67,7 @@ public class IndexController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:跳转登陆页面
@@ -84,7 +84,7 @@ public class IndexController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:登陆方法
@@ -99,7 +99,7 @@ public class IndexController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:退出登录方法
