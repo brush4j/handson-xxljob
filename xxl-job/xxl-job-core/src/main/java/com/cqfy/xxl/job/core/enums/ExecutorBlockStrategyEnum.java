@@ -1,7 +1,7 @@
 package com.cqfy.xxl.job.core.enums;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/12
  * @Description:阻塞处理策略，在第一版本中也没有体现出该类中的策略
