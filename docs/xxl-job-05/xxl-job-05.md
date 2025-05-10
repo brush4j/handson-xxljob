@@ -450,14 +450,75 @@ public class RegistryParam implements Serializable {
 
 没错，确实可以这么做，而且这么做属于目标任务的自动添加，但是xxljob并没有这样做，而是后期由用户手动录入的，请大家回忆下，
 
-手动新增任务：
+## 分析执行器表和定时任务表结构
+执行器表：xxl_job_group，如下
+```sql
+CREATE TABLE `xxl_job_group` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`app_name` VARCHAR(64) NOT NULL COMMENT '执行器AppName' COLLATE 'utf8mb4_general_ci',
+	`title` VARCHAR(12) NOT NULL COMMENT '执行器名称' COLLATE 'utf8mb4_general_ci',
+	`address_type` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '执行器地址类型：0=自动注册、1=手动录入',
+	`address_list` TEXT NULL DEFAULT NULL COMMENT '执行器地址列表，多地址逗号分隔' COLLATE 'utf8mb4_general_ci',
+	`update_time` DATETIME NULL DEFAULT NULL,
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=3
+;
+```
+对应前端页面是执行器管理:
+![img_2.png](img_2.png)
+
+定时任务表：xxl_job_info，如下
+```sql
+CREATE TABLE `xxl_job_info` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`job_group` INT(11) NOT NULL COMMENT '执行器主键ID',
+	`job_desc` VARCHAR(255) NOT NULL COLLATE 'utf8mb4_general_ci',
+	`add_time` DATETIME NULL DEFAULT NULL,
+	`update_time` DATETIME NULL DEFAULT NULL,
+	`author` VARCHAR(64) NULL DEFAULT NULL COMMENT '作者' COLLATE 'utf8mb4_general_ci',
+	`alarm_email` VARCHAR(255) NULL DEFAULT NULL COMMENT '报警邮件' COLLATE 'utf8mb4_general_ci',
+	`schedule_type` VARCHAR(50) NOT NULL DEFAULT 'NONE' COMMENT '调度类型' COLLATE 'utf8mb4_general_ci',
+	`schedule_conf` VARCHAR(128) NULL DEFAULT NULL COMMENT '调度配置，值含义取决于调度类型' COLLATE 'utf8mb4_general_ci',
+	`misfire_strategy` VARCHAR(50) NOT NULL DEFAULT 'DO_NOTHING' COMMENT '调度过期策略' COLLATE 'utf8mb4_general_ci',
+	`executor_route_strategy` VARCHAR(50) NULL DEFAULT NULL COMMENT '执行器路由策略' COLLATE 'utf8mb4_general_ci',
+	`executor_handler` VARCHAR(255) NULL DEFAULT NULL COMMENT '执行器任务handler' COLLATE 'utf8mb4_general_ci',
+	`executor_param` VARCHAR(512) NULL DEFAULT NULL COMMENT '执行器任务参数' COLLATE 'utf8mb4_general_ci',
+	`executor_block_strategy` VARCHAR(50) NULL DEFAULT NULL COMMENT '阻塞处理策略' COLLATE 'utf8mb4_general_ci',
+	`executor_timeout` INT(11) NOT NULL DEFAULT '0' COMMENT '任务执行超时时间，单位秒',
+	`executor_fail_retry_count` INT(11) NOT NULL DEFAULT '0' COMMENT '失败重试次数',
+	`glue_type` VARCHAR(50) NOT NULL COMMENT 'GLUE类型' COLLATE 'utf8mb4_general_ci',
+	`glue_source` MEDIUMTEXT NULL DEFAULT NULL COMMENT 'GLUE源代码' COLLATE 'utf8mb4_general_ci',
+	`glue_remark` VARCHAR(128) NULL DEFAULT NULL COMMENT 'GLUE备注' COLLATE 'utf8mb4_general_ci',
+	`glue_updatetime` DATETIME NULL DEFAULT NULL COMMENT 'GLUE更新时间',
+	`child_jobid` VARCHAR(255) NULL DEFAULT NULL COMMENT '子任务ID，多个逗号分隔' COLLATE 'utf8mb4_general_ci',
+	`trigger_status` TINYINT(4) NOT NULL DEFAULT '0' COMMENT '调度状态：0-停止，1-运行',
+	`trigger_last_time` BIGINT(13) NOT NULL DEFAULT '0' COMMENT '上次调度时间',
+	`trigger_next_time` BIGINT(13) NOT NULL DEFAULT '0' COMMENT '下次调度时间',
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb4_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=4
+;
+```
+对应前端是任务管理页面
 
 ![img.png](img.png)
 
-新增页，下面两个红圈的地方，将要注册的定时任务和执行器绑定起来，JobHandler就是定时任务方法的名字
+下面由用户后期手动录入任务，意味着将要注册的定时任务和执行器绑定起来，JobHandler就是定时任务方法的名字
 
 ![img_1.png](img_1.png)
 
+最终的结果就是，新增的定时任务绑了执行器主键id，
+
+需要注意的是同执行器服务副本的主键id和AppName均相同相同，代表的是同一种执行器绑定关系，
+
+只是执行器管理表xxl_job_group中的address_list会存在多个，用于后期执行路由策略
+
+## 执行器启动时到底注册的是什么
 既然如此，那执行器启动时候向调度中心注册的RegistryParam不是目标任务，那到底是什么？
 
 答案：定时任务的信息实际上并不是由执行器亲自注册的，执行器只是部署了定时任务，把定时任务的反射信息存储在本地的数据结构中，然后把执行器本身的信息通过http发送给调度中心。
@@ -491,7 +552,9 @@ AUTO_INCREMENT=3
 ```
 registry_group字段代表注册方式：RegistType{ EXECUTOR, ADMIN }，执行器的注册方法，是手动还是自动（默认都是EXECUTOR自动模式）
 
-registry_value字段用于存储单个执行器实例的地址（例如IP和端口）， 分布式环境中支持多副本执行器，则会在该表中增加多条同执行器的记录，只是registryValue不同
+registry_value字段用于存储单个执行器实例的地址（例如IP和端口），分布式环境中支持同执行器多副本，
+
+与xxl_job_group表存储同执行器多副本地址list不同的是，xxl_job_registry表是在该表中增加多条同执行器的记录，只是registryValue不同
 
 ## 本节测试
 当前版本代码可以直接运行，
