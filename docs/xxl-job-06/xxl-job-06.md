@@ -665,3 +665,13 @@ id;app_name;title;address_type;address_list;update_time
 ```
 
 在admin管理页面手动执行一次定时任务，触发的时候用的xxl_job_group中的数据
+
+测试结果在执行器侧打印如下
+```shell
+第0次
+第1次
+第2次
+第3次
+第4次
+下一次任务开始了！
+```

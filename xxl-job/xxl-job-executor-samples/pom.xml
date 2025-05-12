@@ -12,7 +12,7 @@
     <artifactId>xxl-job-executor-samples</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>xxl-job-executor-sample-springboot-01</module>
+        <module>xxl-job-executor-sample-springboot</module>
     </modules>
 
     <properties>
