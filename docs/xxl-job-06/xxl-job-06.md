@@ -657,7 +657,9 @@ id;registry_group;registry_key;registry_value;update_time
 
 ```
 
-然后手动将执行器表`xxl_job_group`的地址字段补充为执行器注册表`xxl_job_registry`中的地址：http://你的测试执行器本地ip:9999/
+因为本节调度中心暂未处理执行器发送的心跳（xxljob源码是调度中心在registryMonitorThread线程中剔除dead的执行器并自动将xxl_job_registry中的地址拼接到xxl_job_group），所以无法自动的填充执行器组xxl_job_group表中的地址，
+
+需要我们手动将执行器表`xxl_job_group`的地址字段补充为执行器注册表`xxl_job_registry`中的地址：http://你的测试执行器本地ip:9999/
 ```sql
 id;app_name;title;address_type;address_list;update_time
 1;xxl-job-executor-sample;通用执行器Sample;0;http://10.77.182.251:9999/;2025-05-08 08:51:10
