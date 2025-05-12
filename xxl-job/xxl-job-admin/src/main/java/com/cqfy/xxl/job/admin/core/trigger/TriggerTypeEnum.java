@@ -4,7 +4,7 @@ package com.cqfy.xxl.job.admin.core.trigger;
 import com.cqfy.xxl.job.admin.core.util.I18nUtil;
 
 /**
- * @author:halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/12
  * @Description:触发枚举类型，这个其实还是对应着触发器任务的类型。一般也都是cron类型的

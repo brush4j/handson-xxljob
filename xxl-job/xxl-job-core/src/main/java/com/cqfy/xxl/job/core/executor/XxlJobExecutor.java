@@ -1,11 +1,13 @@
 package com.cqfy.xxl.job.core.executor;
 
+
 import com.cqfy.xxl.job.core.biz.AdminBiz;
 import com.cqfy.xxl.job.core.biz.client.AdminBizClient;
 import com.cqfy.xxl.job.core.handler.IJobHandler;
 import com.cqfy.xxl.job.core.handler.annotation.XxlJob;
 import com.cqfy.xxl.job.core.handler.impl.MethodJobHandler;
-import com.cqfy.xxl.job.core.thread.ExecutorRegistryThread;
+import com.cqfy.xxl.job.core.server.EmbedServer;
+import com.cqfy.xxl.job.core.thread.JobThread;
 import com.cqfy.xxl.job.core.util.IpUtil;
 import com.cqfy.xxl.job.core.util.NetUtil;
 import org.slf4j.Logger;
@@ -19,7 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:执行器启动的入口类，其实是从子类中开始执行，但是子类会调用到父类的start方法，真正启动执行器组件
@@ -74,7 +76,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:执行器的组件终于启动了，这里我删去了几个组件，后续再迭代完整
@@ -82,36 +84,41 @@ public class XxlJobExecutor  {
     public void start() throws Exception {
         //初始化admin链接路径存储集合
         //如果是在集群情况下，可能会有多个调度中心，所以，执行器要把自己分别注册到这些调度中心上
-        //这里的方法就是根据用户配置的调度中心的地址，把用来远程注册的客户端AdminBizClient初始化好
+        //这里的方法就是根据用户配置的调度中心的地址，把用来远程注册的客户端初始化好
         initAdminBizList(adminAddresses, accessToken);
-
-        // fill ip port
-        port = port>0?port: NetUtil.findAvailablePort(9999);
-        ip = (ip!=null&&ip.trim().length()>0)?ip: IpUtil.getIp();
-
-        // generate address
-        if (address==null || address.trim().length()==0) {
-            String ip_port_address = IpUtil.getIpPort(ip, port);   // registry-address：default use address to registry , otherwise use ip:port if address is null
-            address = "http://{ip_port}/".replace("{ip_port}", ip_port_address);
-        }
-        //AdminBizClient初始化好之后，再开始向调度中心注册执行器, address为执行器的地址
-        ExecutorRegistryThread.getInstance().start(appname,address);
 
         //启动执行器内部内嵌的服务器，该服务器是用Netty构建的，但构建的是http服务器，仍然是用http来传输消息的
         //在该方法中，会进一步把执行器注册到调度中心上
-//        initEmbedServer(address, ip, port, appname, accessToken);//todo 下个版本用nettty做执行器端服务器
+        initEmbedServer(address, ip, port, appname, accessToken);
     }
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:销毁执行器组件的方法
      */
     public void destroy(){
+        //首先停止内嵌服务器
+        stopEmbedServer();
+        //停止真正执行定时任务的各个线程
+        if (jobThreadRepository.size() > 0) {
+            for (Map.Entry<Integer, JobThread> item: jobThreadRepository.entrySet()) {
+                JobThread oldJobThread = removeJobThread(item.getKey(), "web container destroy and kill the job.");
+                if (oldJobThread != null) {
+                    try {
+                        oldJobThread.join();
+                    } catch (InterruptedException e) {
+                        logger.error(">>>>>>>>>>> xxl-job, JobThread destroy(join) error, jobId:{}", item.getKey(), e);
+                    }
+                }
+            }
+            jobThreadRepository.clear();
+        }
         //清空缓存jobHandler的Map
         jobHandlerRepository.clear();
+
 
     }
 
@@ -122,7 +129,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:初始化客户端的方法，初始化的客户端是用来向调度中心发送消息的
@@ -150,10 +157,65 @@ public class XxlJobExecutor  {
         return adminBizList;
     }
 
+    //内嵌的服务器对象
+    private EmbedServer embedServer = null;
+
+
+
+
+
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/8
+     * @Description:启动执行器内嵌的Netty服务器，然后把执行器注册到调度中心
+     */
+    private void initEmbedServer(String address, String ip, int port, String appname, String accessToken) throws Exception {
+        //这里就是使用默认地址的操作，因为执行器一端的配置文件中并没有配置执行器的地址
+        //所以这里使用工具类得到默认端口号9999
+        port = port>0?port: NetUtil.findAvailablePort(9999);
+        //在这里得到默认IP地址
+        ip = (ip!=null&&ip.trim().length()>0)?ip: IpUtil.getIp();
+        //判断地址是否为null
+        if (address==null || address.trim().length()==0) {
+            //如果为空说明真的没有配置，那就把刚才得到的IP地址和port拼接起来
+            //得到默认的执行器地址
+            String ip_port_address = IpUtil.getIpPort(ip, port);
+            address = "http://{ip_port}/".replace("{ip_port}", ip_port_address);
+        }
+        //校验token
+        if (accessToken==null || accessToken.trim().length()==0) {
+            logger.warn(">>>>>>>>>>> xxl-job accessToken is empty. To ensure system security, please set the accessToken.");
+        }
+        //创建执行器端的Netty服务器
+        embedServer = new EmbedServer();
+        //启动服务器，在启动的过程中，会把执行器注册到调度中心
+        embedServer.start(address, port, appname, accessToken);
+    }
+
+
+
+    /**
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/8
+     * @Description:停止netty服务器运行的方法
+     */
+    private void stopEmbedServer() {
+        if (embedServer != null) {
+            try {
+                embedServer.stop();
+            } catch (Exception e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+    }
+
+
+    /**
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:存放IJobHandler对象的Map
@@ -172,7 +234,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:该方法就是用来将用户定义的bean中的每一个定时任务方法都注册到JobHandler的子类对象中的
@@ -232,5 +294,68 @@ public class XxlJobExecutor  {
         //调用，其实内部还是使用了反射。然后把定时任务的名字和MethodJobHandler对象以键值对的方式缓存在
         //jobHandlerRepository这个Map中
         registJobHandler(name, new MethodJobHandler(bean, executeMethod, initMethod, destroyMethod));
+    }
+
+
+    /**
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/8
+     * @Description:缓存JobThread的Map，而每一个定时任务对应着一个ID，也就对应着一个执行这个定时任务的线程
+     * 这个Map中，key就是定时任务的ID，value就是执行它的线程
+     */
+    private static ConcurrentMap<Integer, JobThread> jobThreadRepository = new ConcurrentHashMap<Integer, JobThread>();
+
+    /**
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/8
+     * @Description:把定时任务对应的JobThread缓存到jobThreadRepository这个Map中
+     */
+    public static JobThread registJobThread(int jobId, IJobHandler handler, String removeOldReason){
+        //根据定时任务ID和封装定时任务方法的IJobHandler对象创建JobThread对象
+        JobThread newJobThread = new JobThread(jobId, handler);
+        //创建之后就启动线程
+        newJobThread.start();
+        logger.info(">>>>>>>>>>> xxl-job regist JobThread success, jobId:{}, handler:{}", new Object[]{jobId, handler});
+        //将该线程缓存到Map中
+        JobThread oldJobThread = jobThreadRepository.put(jobId, newJobThread);
+        if (oldJobThread != null) {
+            //如果oldJobThread不为null，说明Map中已经缓存了相同的对象
+            //这里的做法就是直接停止旧线程
+            oldJobThread.toStop(removeOldReason);
+            oldJobThread.interrupt();
+        }
+        return newJobThread;
+    }
+
+
+    /**
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/8
+     * @Description:从jobThreadRepository这个Map中移除JobThread线程
+     */
+    public static JobThread removeJobThread(int jobId, String removeOldReason){
+        //根据定时任务ID删除工作线程
+        JobThread oldJobThread = jobThreadRepository.remove(jobId);
+        if (oldJobThread != null) {
+            //停止线程，在该方法内部，会讲线程的停止条件设为true，线程就会停下了
+            oldJobThread.toStop(removeOldReason);
+            oldJobThread.interrupt();
+            return oldJobThread;
+        }
+        return null;
+    }
+
+
+    /**
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/8
+     * @Description:根据定时任务ID，获取对应的JobThread对象
+     */
+    public static JobThread loadJobThread(int jobId){
+        return jobThreadRepository.get(jobId);
     }
 }

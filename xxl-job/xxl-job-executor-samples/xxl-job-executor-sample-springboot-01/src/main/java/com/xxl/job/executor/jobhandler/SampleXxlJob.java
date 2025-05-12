@@ -29,15 +29,7 @@ public class SampleXxlJob {
         for (int i = 0; i < 5; i++) {
             System.out.println("第"+i+"次");
         }
-        System.out.println("下一次任务开始了demoJobHandler！");
-    }
-
-    @XxlJob("demoJobHandler2")
-    public void demoJobHandler2() throws Exception {
-        for (int i = 0; i < 5; i++) {
-            System.out.println("第"+i+"次");
-        }
-        System.out.println("下一次任务开始了demoJobHandler2！");
+        System.out.println("下一次任务开始了！");
     }
 
 

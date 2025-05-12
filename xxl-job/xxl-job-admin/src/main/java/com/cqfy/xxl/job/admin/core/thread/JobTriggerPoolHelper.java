@@ -10,7 +10,7 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @author:halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/2
  * @Description:xxl-job服务器的重点类，在这个类中初始化了两个线程池。一个快，一个慢，要被执行的任务会被包装成触发器
@@ -21,7 +21,7 @@ public class JobTriggerPoolHelper {
     private static Logger logger = LoggerFactory.getLogger(JobTriggerPoolHelper.class);
 
     /**
-     * @author:halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/2
      * @Description:下面这两个快慢线程池没有什么本质的不同，都是线程池而已，只不过快线程池的最大线程数为200
@@ -39,7 +39,7 @@ public class JobTriggerPoolHelper {
 
 
     /**
-     * @author:halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/2
      * @Description:在这里创建了两个快慢线程池
@@ -76,7 +76,7 @@ public class JobTriggerPoolHelper {
 
 
     /**
-     * @author:halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/2
      * @Description:关闭线程池
@@ -97,7 +97,7 @@ public class JobTriggerPoolHelper {
     private volatile ConcurrentMap<Integer, AtomicInteger> jobTimeoutCountMap = new ConcurrentHashMap<>();
 
     /**
-     * @author:halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/2
      * @Description:这个方法就是远程调用的起点，很重要的入口方法。JobInfoController类中的triggerJob方法会调用到
@@ -165,7 +165,7 @@ public class JobTriggerPoolHelper {
     }
 
     /**
-     * @author:halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/3
      * @Description:静态成员变量，说明该变量也只会初始化一次，并且根据修饰符来看，该成员变量也不会直接对外暴露
@@ -185,7 +185,7 @@ public class JobTriggerPoolHelper {
 
 
     /**
-     * @author:halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/3
      * @Description:该方法会对外暴露，然后调用到该类内部的addTrigger方法，该方法的作用就是把要执行的job，包装成

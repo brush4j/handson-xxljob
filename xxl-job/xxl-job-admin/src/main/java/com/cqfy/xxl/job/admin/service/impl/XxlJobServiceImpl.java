@@ -25,7 +25,7 @@ import java.util.*;
 
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/12
  * @Description:操纵定时任务的核心逻辑，全在这个类中了
@@ -51,7 +51,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/12
 	 * @Description:分页查询，查询定时任务的信息
@@ -68,7 +68,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 	}
 	
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/12
 	 * @Description:新增一个定时任务
@@ -186,7 +186,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/12
 	 * @Description:判断字符串内容是不是数字的方法
@@ -202,7 +202,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 
 	
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/12
 	 * @Description:更新定时任务的方法，这个方法我就不添加注释了，大家可以对照着上面的方法来学习，大体逻辑都是一样的
@@ -321,7 +321,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 
 	
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/12
 	 * @Description:删除定时任务，这个逻辑简单，就不细说了
@@ -340,7 +340,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/12
 	 * @Description:启动定时任务，这里启动定时任务，其实就是计算出最新的定时任务可以被调度的时间
@@ -381,7 +381,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/12
 	 * @Description:停止定时任务
@@ -402,7 +402,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/12
 	 * @Description:获取运行报表页面需要的所有数据
@@ -437,7 +437,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/12
 	 * @Description:获取调度报表七天内的数据
