@@ -189,7 +189,7 @@ public class XxlJobExecutor  {
         if (accessToken==null || accessToken.trim().length()==0) {
             logger.warn(">>>>>>>>>>> xxl-job accessToken is empty. To ensure system security, please set the accessToken.");
         }
-        //创建执行器端的Netty服务器
+        //创建执行器短的Netty服务器
         embedServer = new EmbedServer();
         //启动服务器，在启动的过程中，会把执行器注册到调度中心
         embedServer.start(address, port, appname, accessToken);

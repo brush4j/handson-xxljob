@@ -75,7 +75,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 	 */
 	@Override
 	public ReturnT<String> add(XxlJobInfo jobInfo) {
-		//先查询到该定时任务对应的执行器组
+		//先查询到该定时任务对应的执行器
 		XxlJobGroup group = xxlJobGroupDao.load(jobInfo.getJobGroup());
 		if (group == null) {
 			//如果执行器为空，返回失败
@@ -358,8 +358,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 		}
 		long nextTriggerTime = 0;
 		try {
-			//得到该定时任务5秒之后的执行时间，这里之所以要得到5秒之后，是因为定时任务调度线程每次调度定时任务的周期
-			//为5秒，新提交的定时任务就在新的周期中执行
+			//得到该定时任务5秒之后的执行时间，这里之所以要得到5秒之后，是因为调度定时任务的线程，刚开始执行的时候会睡4到5秒
 			Date nextValidTime = JobScheduleHelper.generateNextValidTime(xxlJobInfo, new Date(System.currentTimeMillis() + JobScheduleHelper.PRE_READ_MS));
 			if (nextValidTime == null) {
 				return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("schedule_type")+I18nUtil.getString("system_unvalid")) );

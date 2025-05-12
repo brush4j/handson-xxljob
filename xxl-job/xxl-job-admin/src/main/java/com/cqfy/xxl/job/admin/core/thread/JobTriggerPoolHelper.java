@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/2
  * @Description:xxl-job服务器的重点类，在这个类中初始化了两个线程池。一个快，一个慢，要被执行的任务会被包装成触发器
- * 任务，提交给这两个线程池中的一个，然后由线程池去执行者触发器任务，在任务中会进行远程调用。
+ * 任务，提交给这两个线程池中的一个，然后由线程池去执行者触发器任务，在任务中会进行远程调用。这个类已经和源码一致了
  */
 public class JobTriggerPoolHelper {
 

@@ -1,6 +1,7 @@
 package com.cqfy.xxl.job.core.biz.client;
 
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
+import com.cqfy.xxl.job.core.biz.model.IdleBeatParam;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
 import com.cqfy.xxl.job.core.biz.model.TriggerParam;
 import com.cqfy.xxl.job.core.util.XxlJobRemotingUtil;
@@ -30,6 +31,17 @@ public class ExecutorBizClient implements ExecutorBiz {
     private String accessToken;
     private int timeout = 3;
 
+
+    @Override
+    public ReturnT<String> beat() {
+        return XxlJobRemotingUtil.postBody(addressUrl+"beat", accessToken, timeout, "", String.class);
+    }
+
+
+    @Override
+    public ReturnT<String> idleBeat(IdleBeatParam idleBeatParam){
+        return XxlJobRemotingUtil.postBody(addressUrl+"idleBeat", accessToken, timeout, idleBeatParam, String.class);
+    }
 
 
     /**

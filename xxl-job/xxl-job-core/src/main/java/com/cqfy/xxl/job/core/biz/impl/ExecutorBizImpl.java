@@ -1,6 +1,7 @@
 package com.cqfy.xxl.job.core.biz.impl;
 
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
+import com.cqfy.xxl.job.core.biz.model.IdleBeatParam;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
 import com.cqfy.xxl.job.core.biz.model.TriggerParam;
 import com.cqfy.xxl.job.core.executor.XxlJobExecutor;
@@ -20,6 +21,42 @@ public class ExecutorBizImpl implements ExecutorBiz {
 
     private static Logger logger = LoggerFactory.getLogger(ExecutorBizImpl.class);
 
+
+    /**
+     * @author:Halfmoonly
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/14
+     * @Description:心跳检测方法
+     */
+    @Override
+    public ReturnT<String> beat() {
+        return ReturnT.SUCCESS;
+    }
+
+
+    /**
+     * @author:Halfmoonly
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/14
+     * @Description:判断调度中心调度的定时任务是否在执行器对应的任务线程的队列中
+     */
+    @Override
+    public ReturnT<String> idleBeat(IdleBeatParam idleBeatParam) {
+        boolean isRunningOrHasQueue = false;
+        //获取执行定时任务的线程
+        JobThread jobThread = XxlJobExecutor.loadJobThread(idleBeatParam.getJobId());
+        if (jobThread != null && jobThread.isRunningOrHasQueue()) {
+            //如果线程不为null，并且正在工作，就把该变量置为true
+            isRunningOrHasQueue = true;
+        }
+        //这时候就说明调度的任务还没有被执行呢，肯定在队列里面待着呢，或者是正在执行呢
+        //总之，当前执行器比较繁忙
+        if (isRunningOrHasQueue) {
+            //所以就可以返回一个失败的状态码
+            return new ReturnT<String>(ReturnT.FAIL_CODE, "job thread is running or has trigger queue.");
+        }
+        return ReturnT.SUCCESS;
+    }
 
     /**
      * @author:Halfmoonly

@@ -4,8 +4,10 @@ import com.cqfy.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.cqfy.xxl.job.admin.core.thread.JobRegistryHelper;
 import com.cqfy.xxl.job.admin.core.thread.JobScheduleHelper;
 import com.cqfy.xxl.job.admin.core.thread.JobTriggerPoolHelper;
+import com.cqfy.xxl.job.admin.core.util.I18nUtil;
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
 import com.cqfy.xxl.job.core.biz.client.ExecutorBizClient;
+import com.cqfy.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,6 +33,9 @@ public class XxlJobScheduler {
      * 只引入JobTriggerPoolHelper和JobScheduleHelper这两个组件
      */
     public void init() throws Exception {
+
+        //这里是初始化语言国际化的操作，其实内部就是把一些策略的中文初始化好
+        initI18n();
         //初始化触发器线程池，这里面会创建两个线程池，一个快线程池，一个慢线程池
         //触发器任务的执行，就是由这两个线程池执行的
         JobTriggerPoolHelper.toStart();
@@ -61,6 +66,19 @@ public class XxlJobScheduler {
         JobTriggerPoolHelper.toStop();
 
     }
+
+    /**
+     * @author:Halfmoonly
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/13
+     * @Description:在这里把阻塞策略的中文初始化好
+     */
+    private void initI18n(){
+        for (ExecutorBlockStrategyEnum item: ExecutorBlockStrategyEnum.values()) {
+            item.setTitle(I18nUtil.getString("jobconf_block_".concat(item.name())));
+        }
+    }
+
 
 
     /**
