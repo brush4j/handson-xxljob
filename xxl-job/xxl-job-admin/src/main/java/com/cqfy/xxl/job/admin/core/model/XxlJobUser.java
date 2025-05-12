@@ -3,7 +3,7 @@ package com.cqfy.xxl.job.admin.core.model;
 import org.springframework.util.StringUtils;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/11
  * @Description:用户信息对应的实体类
@@ -63,7 +63,7 @@ public class XxlJobUser {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:判断当前用户有没有执行器权限的方法

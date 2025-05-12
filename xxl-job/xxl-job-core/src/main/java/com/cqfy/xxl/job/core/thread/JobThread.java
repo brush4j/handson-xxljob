@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:该类就是用来真正执行定时任务的，并且是一个定时任务对应着一个JobThread对象
@@ -42,7 +42,7 @@ public class JobThread extends Thread{
 	private int idleTimes = 0;
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/8
 	 * @Description:构造方法
@@ -63,7 +63,7 @@ public class JobThread extends Thread{
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/8
 	 * @Description:把触发器参数放进队列中的方法
@@ -76,7 +76,7 @@ public class JobThread extends Thread{
 	}
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/8
 	 * @Description:终止该线程的方法
@@ -89,7 +89,7 @@ public class JobThread extends Thread{
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/8
 	 * @Description:判断线程是否有任务，并且是否正在运行，这个方法会和阻塞策略一起使用，
@@ -101,7 +101,7 @@ public class JobThread extends Thread{
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/8
 	 * @Description:当前线程启动之后会执行的run方法
