@@ -645,10 +645,23 @@ public class JobThread extends Thread{
 
 
 ## 测试方式
-将执行器表`xxl_job_group`的地址字段补充为执行器注册表`xxl_job_registry`中的地址：http://你的测试执行器本地ip:9999/
-
 启动admin服务
 
 启动sample服务
 
-手动执行一次定时任务
+会发现执行器地址已经注册到执行器注册表`xxl_job_registry`中了
+```sql
+id;registry_group;registry_key;registry_value;update_time
+1;EXECUTOR;xxl-job-executor-sample;http://:9999/;2025-05-09 14:07:27
+5;EXECUTOR;xxl-job-executor-sample;http://10.77.182.251:9999/;2025-05-12 10:49:13
+
+```
+
+然后手动将执行器表`xxl_job_group`的地址字段补充为执行器注册表`xxl_job_registry`中的地址：http://你的测试执行器本地ip:9999/
+```sql
+id;app_name;title;address_type;address_list;update_time
+1;xxl-job-executor-sample;通用执行器Sample;0;http://10.77.182.251:9999/;2025-05-08 08:51:10
+2;xxl-job-executor-sample-ai;AI执行器Sample;0;\N;2025-05-08 08:51:10
+```
+
+在admin管理页面手动执行一次定时任务，触发的时候用的xxl_job_group中的数据
