@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/4
  * @Description:这个实现类是调度中心要使用的
@@ -21,7 +21,7 @@ public class AdminBizImpl implements AdminBiz {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:调度中心要调用的方法，把执行器回调的定时任务执行的结果信息收集起来
@@ -33,7 +33,7 @@ public class AdminBizImpl implements AdminBiz {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/4
      * @Description:把执行器注册到注册中心
@@ -45,7 +45,7 @@ public class AdminBizImpl implements AdminBiz {
     }
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/4
      * @Description:移除执行器的方法

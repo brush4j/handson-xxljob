@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/4
  * @Description:执行器组的实体类，实际上就是把执行相同定时任务的执行器用这个对象来封装
@@ -33,7 +33,7 @@ public class XxlJobGroup {
     private List<String> registryList;
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/4
      * @Description:该方法会讲addressList属性中的所有地址转变成list集合

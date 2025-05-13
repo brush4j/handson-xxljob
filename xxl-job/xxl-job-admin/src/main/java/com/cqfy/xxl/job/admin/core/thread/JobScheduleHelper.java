@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/5
  * @Description:该类就完全可以说是xxl-job服务端的最核心类了
@@ -60,7 +60,7 @@ public class JobScheduleHelper {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/5
      * @Description:启动scheduleThread线程
@@ -276,7 +276,7 @@ public class JobScheduleHelper {
 
 
         /**
-         * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+         * @author:Halfmoonly
          * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
          * @Date:2023/7/6
          * @Description:下面这个就是时间轮的工作线程
@@ -344,7 +344,7 @@ public class JobScheduleHelper {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/6
      * @Description:刷新定时任务下一次的执行时间
@@ -366,7 +366,7 @@ public class JobScheduleHelper {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/6
      * @Description:把定时任务放到时间轮中
@@ -383,7 +383,7 @@ public class JobScheduleHelper {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/6
      * @Description:停止任务调度器的方法，其实就是终止本类的两个线程
@@ -440,7 +440,7 @@ public class JobScheduleHelper {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/6
      * @Description:集合cron表达式计算定时任务下一次的执行时间

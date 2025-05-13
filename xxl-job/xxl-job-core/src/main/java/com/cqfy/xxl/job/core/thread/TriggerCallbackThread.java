@@ -47,7 +47,7 @@ public class TriggerCallbackThread {
     private volatile boolean toStop = false;
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:启动组件的方法
@@ -141,7 +141,7 @@ public class TriggerCallbackThread {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:终止该组件工作的方法
@@ -168,7 +168,7 @@ public class TriggerCallbackThread {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:回调定时任务的执行信息给调度中心的方法
@@ -203,7 +203,7 @@ public class TriggerCallbackThread {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:回调失败的话，记录失败日志，注意，这里记录的失败日志，是把每个日志记录到回调信息对应的
@@ -232,7 +232,7 @@ public class TriggerCallbackThread {
     private static String failCallbackFileName = failCallbackFilePath.concat("xxl-job-callback-{x}").concat(".log");
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:回调失败了的意思，要把回调失败的数据存储到本地一个专门的文件当中，方便重试线程重新回调
@@ -260,7 +260,7 @@ public class TriggerCallbackThread {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:重新回调执行结果给调度中心的方法

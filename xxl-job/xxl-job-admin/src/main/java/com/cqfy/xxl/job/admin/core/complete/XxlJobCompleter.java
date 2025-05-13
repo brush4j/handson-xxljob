@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/17
  * @Description:更新日志信息，触发子任务的类
@@ -32,7 +32,7 @@ public class XxlJobCompleter {
 
 
    /**
-    * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+    * @author:Halfmoonly
     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
     * @Date:2023/7/17
     * @Description:触发子任务的方法，暂时用不上，就注释掉了
