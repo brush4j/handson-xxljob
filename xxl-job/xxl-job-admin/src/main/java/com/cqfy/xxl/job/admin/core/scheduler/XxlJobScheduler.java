@@ -1,10 +1,7 @@
 package com.cqfy.xxl.job.admin.core.scheduler;
 
 import com.cqfy.xxl.job.admin.core.conf.XxlJobAdminConfig;
-import com.cqfy.xxl.job.admin.core.thread.JobCompleteHelper;
-import com.cqfy.xxl.job.admin.core.thread.JobRegistryHelper;
-import com.cqfy.xxl.job.admin.core.thread.JobScheduleHelper;
-import com.cqfy.xxl.job.admin.core.thread.JobTriggerPoolHelper;
+import com.cqfy.xxl.job.admin.core.thread.*;
 import com.cqfy.xxl.job.admin.core.util.I18nUtil;
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
 import com.cqfy.xxl.job.core.biz.client.ExecutorBizClient;
@@ -16,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/2
  * @Description:xxl-job服务端的启动类，在该类的init的方法中会初始化各个组件。
@@ -26,7 +23,7 @@ public class XxlJobScheduler {
     private static final Logger logger = LoggerFactory.getLogger(XxlJobScheduler.class);
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/1
      * @Description:初始化服务端的各个组件，因为是第一个手写版本，所以我们只做最简单的实现
@@ -43,8 +40,15 @@ public class XxlJobScheduler {
         //现在的版本并没有定时清理过期服务实例的功能
         JobRegistryHelper.getInstance().start();
 
+        //该组件的功能就是当调度中心调度任务失败的时候，发送邮件警报的
+        JobFailMonitorHelper.getInstance().start();
+
         //启动调度中心接收执行器回调信息的工作组件
         JobCompleteHelper.getInstance().start();
+
+        //该组件的功能也很简答，就是统计定时任务日志的信息，成功失败次数等等
+        //同时也会清除过期日志，过期日志时间是用户写在配置文件中的，默认为30天
+        JobLogReportHelper.getInstance().start();
 
 
         //初始化任务调度线程，这个线程可以说是xxl-job服务端的核心了
@@ -57,7 +61,7 @@ public class XxlJobScheduler {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/2
      * @Description:释放资源的方法
@@ -65,14 +69,16 @@ public class XxlJobScheduler {
     public void destroy() throws Exception {
 
         JobScheduleHelper.getInstance().toStop();
+        JobLogReportHelper.getInstance().toStop();
         JobCompleteHelper.getInstance().toStop();
+        JobFailMonitorHelper.getInstance().toStop();
         JobRegistryHelper.getInstance().toStop();
         JobTriggerPoolHelper.toStop();
 
     }
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/13
      * @Description:在这里把阻塞策略的中文初始化好
@@ -86,7 +92,7 @@ public class XxlJobScheduler {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/2
      * @Description:这个就是远程调用的Map集合，这个集合中，存储的就是专门用来远程调用的客户端
@@ -99,7 +105,7 @@ public class XxlJobScheduler {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/2
      * @Description:通过这个方法可以获得一个进行远程调用的客户端。我想再次强调一下，所谓的客户端和服务端都是相对的

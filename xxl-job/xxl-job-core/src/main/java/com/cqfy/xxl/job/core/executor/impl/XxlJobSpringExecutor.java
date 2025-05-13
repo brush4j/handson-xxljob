@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:该类就是执行器这一点服务开始执行的入口。该类中的afterSingletonsInstantiated方法会在IOC容器中
@@ -29,7 +29,7 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:执行器启动的入口，在该方法内，会把用户定义的定时任务，也就是加了@XxlJob注解的方法，注册到IJobHandler对象中
@@ -62,7 +62,7 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:该方法会把用户定义的所有定时任务注册到IJobHandler对象中，其实是MethodJobHandler对象

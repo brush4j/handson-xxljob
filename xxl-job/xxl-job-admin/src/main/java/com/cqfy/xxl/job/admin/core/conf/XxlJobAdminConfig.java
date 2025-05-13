@@ -1,5 +1,6 @@
 package com.cqfy.xxl.job.admin.core.conf;
 
+import com.cqfy.xxl.job.admin.core.alarm.JobAlarmer;
 import com.cqfy.xxl.job.admin.core.scheduler.XxlJobScheduler;
 import com.cqfy.xxl.job.admin.dao.*;
 import org.springframework.beans.factory.DisposableBean;
@@ -13,7 +14,7 @@ import javax.sql.DataSource;
 import java.util.Arrays;
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/1
  * @Description:这个类可以说是服务端的启动入口，该类实现了Spring的InitializingBean接口，所以该类中的
@@ -48,7 +49,7 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
     }
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/1
      * @Description:当该类的对象被销毁的时候，会调用该方法
@@ -62,7 +63,7 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
     }
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/1
      * @Description:下面就是一些简单的属性注入，spring为我们做的
@@ -89,7 +90,7 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
     private int logretentiondays;
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/1
      * @Description:各个dao注入到这里
@@ -108,10 +109,12 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
     private JavaMailSender mailSender;
     @Resource
     private DataSource dataSource;
+    @Resource
+    private JobAlarmer jobAlarmer;
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/1
      * @Description:下面都是一些简单的get方法，用来得到刚才被注入的属性
@@ -181,6 +184,10 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
 
     public DataSource getDataSource() {
         return dataSource;
+    }
+
+    public JobAlarmer getJobAlarmer() {
+        return jobAlarmer;
     }
 
 }

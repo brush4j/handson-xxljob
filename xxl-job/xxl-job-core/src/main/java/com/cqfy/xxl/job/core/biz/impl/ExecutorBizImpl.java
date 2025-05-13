@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:该类就是在执行器段进行定时任务调用的类
@@ -24,7 +24,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/14
      * @Description:心跳检测方法
@@ -36,7 +36,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/14
      * @Description:判断调度中心调度的定时任务是否在执行器对应的任务线程的队列中
@@ -60,7 +60,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
     }
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:执行定时任务的方法，这里要再次强调一下，该方法是在用户定义的业务线程池中调用的
@@ -121,7 +121,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:调度中心远程查询执行器端日志的方法

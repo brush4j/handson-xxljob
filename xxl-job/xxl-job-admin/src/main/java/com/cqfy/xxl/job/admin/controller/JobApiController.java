@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/11
  * @Description:这个类不对web界面开放，而是程序内部执行远程调用时使用的，这个类中的接口是对执行器那一端暴露的
@@ -32,7 +32,7 @@ public class JobApiController {
     private AdminBiz adminBiz;
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/11
      * @Description:该方法就是执行注册执行器的方法，执行器那一端会访问下面这个接口，进行注册

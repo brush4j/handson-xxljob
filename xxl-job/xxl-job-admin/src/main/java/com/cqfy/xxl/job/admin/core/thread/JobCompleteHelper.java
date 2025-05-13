@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.*;
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/17
  * @Description:调度中心接收执行器回调信息的工作组件
@@ -38,7 +38,7 @@ public class JobCompleteHelper {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:启动该组件
@@ -143,7 +143,7 @@ public class JobCompleteHelper {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:处理回调信息的方法
@@ -166,7 +166,7 @@ public class JobCompleteHelper {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:真正处理回调信息的方法
@@ -192,7 +192,6 @@ public class JobCompleteHelper {
 			handleMsg.append(handleCallbackParam.getHandleMsg());
 		}
 		log.setHandleTime(new Date());
-		//在这里把定时任务执行的状态码赋值给XxlJobLog对象中的handleCode成员变量了
 		log.setHandleCode(handleCallbackParam.getHandleCode());
 		log.setHandleMsg(handleMsg.toString());
 		//更新数据库中的日志信息

@@ -136,7 +136,7 @@ public class JobLogReportHelper {
                         expiredDay.set(Calendar.MINUTE, 0);
                         expiredDay.set(Calendar.SECOND, 0);
                         expiredDay.set(Calendar.MILLISECOND, 0);
-                        //得到30天前的具体时间，然后就以这个时间点为标尺，清除该时间之前的所有日志
+                        //得到10天前的具体时间，然后就以这个时间点为标尺，清除该时间之前的所有日志
                         Date clearBeforeTime = expiredDay.getTime();
                         List<Long> logIds = null;
                         do {
