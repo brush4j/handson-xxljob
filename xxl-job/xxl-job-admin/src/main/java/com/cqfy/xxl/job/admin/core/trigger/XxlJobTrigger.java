@@ -10,6 +10,7 @@ import com.cqfy.xxl.job.admin.core.util.I18nUtil;
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
 import com.cqfy.xxl.job.core.biz.model.TriggerParam;
+import com.cqfy.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 import com.cqfy.xxl.job.core.util.IpUtil;
 import com.cqfy.xxl.job.core.util.ThrowableUtil;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/3
  * @Description:该类也是xxl-job中很重要的一个类，job的远程调用就是在该类中进行的，当然不是直接进行，远程调用
@@ -31,7 +32,7 @@ public class XxlJobTrigger {
     private static Logger logger = LoggerFactory.getLogger(XxlJobTrigger.class);
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/3
      * @Description:该方法是远程调用前的准备阶段，在该方法内，如果用户自己设置了执行器的地址和执行器的任务参数，
@@ -56,6 +57,8 @@ public class XxlJobTrigger {
             //设置执行器的任务参数
             jobInfo.setExecutorParam(executorParam);
         }
+        //得到用户设定的该任务的失败重试次数
+        int finalFailRetryCount = failRetryCount>=0?failRetryCount:jobInfo.getExecutorFailRetryCount();
         //同样是根据jobId获取所有的执行器
         XxlJobGroup group = XxlJobAdminConfig.getAdminConfig().getXxlJobGroupDao().load(jobInfo.getJobGroup());
         //这里也有一个小判断，如果用户在web界面输入了执行器的地址，这里会把执行器的地址设置到刚才查询到的执行器中
@@ -78,12 +81,12 @@ public class XxlJobTrigger {
         //分片总数就为3，这里虽然有这两个参数，实际上在第一个版本还用不到。之所以不把参数略去是因为，这样一来
         //需要改动的地方就有点多了，大家理解一下
         //在该方法内，会真正开始远程调用，这个方法，也是远程调用的核心方法
-        processTrigger(group, jobInfo, -1, triggerType, 0, 1);
+        processTrigger(group, jobInfo, finalFailRetryCount, triggerType, 0, 1);
     }
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/3
      * @Description:该方法会判断字符串的内容是不是数字
@@ -99,12 +102,14 @@ public class XxlJobTrigger {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/3
      * @Description:在该方法中会进一步处理分片和路由策略
      */
     private static void processTrigger(XxlJobGroup group, XxlJobInfo jobInfo, int finalFailRetryCount, TriggerTypeEnum triggerType, int index, int total){
+        //获得定时任务的阻塞策略，默认是串行
+        ExecutorBlockStrategyEnum blockStrategy = ExecutorBlockStrategyEnum.match(jobInfo.getExecutorBlockStrategy(), ExecutorBlockStrategyEnum.SERIAL_EXECUTION);
         //得到当前要调度的执行任务的路由策略，默认是没有
         ExecutorRouteStrategyEnum executorRouteStrategyEnum = ExecutorRouteStrategyEnum.match(jobInfo.getExecutorRouteStrategy(), null);
         //这里就要开始执行和定时任务日志相关的操作了
@@ -127,6 +132,8 @@ public class XxlJobTrigger {
         triggerParam.setExecutorHandler(jobInfo.getExecutorHandler());
         //把执行器要执行的任务的参数设置进去
         triggerParam.setExecutorParams(jobInfo.getExecutorParam());
+        //把阻塞策略设置进去
+        triggerParam.setExecutorBlockStrategy(jobInfo.getExecutorBlockStrategy());
         //定时任务的路由策略设置进去
         triggerParam.setExecutorBlockStrategy(jobInfo.getExecutorBlockStrategy());
         //设置定时任务的日志id
@@ -198,7 +205,7 @@ public class XxlJobTrigger {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/4
      * @Description:该方法内进行远程调用

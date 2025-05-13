@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/17
  * @Description:该类是操作日志的类，对日志文件进行操作的功能全部封装在该类中
@@ -25,7 +25,7 @@ public class XxlJobFileAppender {
 	private static String glueSrcPath = logBasePath.concat("/gluesource");
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:初始化存储日志文件路径的方法，非常简单，就不细讲了
@@ -57,7 +57,7 @@ public class XxlJobFileAppender {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:该方法会根据定时任务的触发时间和其对应的日志id创造一个文件名，这个日志id是在调度中心就创建好的
@@ -66,6 +66,7 @@ public class XxlJobFileAppender {
 	public static String makeLogFileName(Date triggerDate, long logId) {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		//这里的getLogPath()会得到存储日志的基础路径，就是用户在配置文件设置的那个路径
+		//这里就把当天时间作为文件夹的名称了
 		File logFilePath = new File(getLogPath(), sdf.format(triggerDate));
 		if (!logFilePath.exists()) {
 			logFilePath.mkdir();
@@ -79,7 +80,7 @@ public class XxlJobFileAppender {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:把日志记录到本地的日志文件中
@@ -121,7 +122,7 @@ public class XxlJobFileAppender {
 	}
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:读取本地的日志文件内容，这个方法虽然有点长，但都是常规逻辑，就是最基础的读取文件的操作
@@ -162,7 +163,7 @@ public class XxlJobFileAppender {
 	}
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:Halfmoonly
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:也是读取日志文件内容，一行一行地读

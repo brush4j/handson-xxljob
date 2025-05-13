@@ -2,10 +2,7 @@ package com.cqfy.xxl.job.core.server;
 
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
 import com.cqfy.xxl.job.core.biz.impl.ExecutorBizImpl;
-import com.cqfy.xxl.job.core.biz.model.IdleBeatParam;
-import com.cqfy.xxl.job.core.biz.model.LogParam;
-import com.cqfy.xxl.job.core.biz.model.ReturnT;
-import com.cqfy.xxl.job.core.biz.model.TriggerParam;
+import com.cqfy.xxl.job.core.biz.model.*;
 import com.cqfy.xxl.job.core.thread.ExecutorRegistryThread;
 import com.cqfy.xxl.job.core.util.GsonTool;
 import com.cqfy.xxl.job.core.util.ThrowableUtil;
@@ -26,7 +23,7 @@ import org.slf4j.LoggerFactory;
 import java.util.concurrent.*;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:执行器这一端内嵌的netty服务器
@@ -42,7 +39,7 @@ public class EmbedServer {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:启动执行器的内嵌服务器
@@ -124,7 +121,7 @@ public class EmbedServer {
     }
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:销毁资源的方法
@@ -140,7 +137,7 @@ public class EmbedServer {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:程序内部定义的入站处理器，这个处理器会进行定时任务方法的调用
@@ -157,7 +154,7 @@ public class EmbedServer {
         private ThreadPoolExecutor bizThreadPool;
 
         /**
-         * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+         * @author:Halfmoonly
          * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
          * @Date:2023/7/8
          * @Description:构造方法
@@ -170,7 +167,7 @@ public class EmbedServer {
 
 
         /**
-         * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+         * @author:Halfmoonly
          * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
          * @Date:2023/7/8
          * @Description:入站方法，在该方法中，进行定时任务的调用
@@ -206,7 +203,7 @@ public class EmbedServer {
 
 
         /**
-         * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+         * @author:Halfmoonly
          * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
          * @Date:2023/7/8
          * @Description:该方法中完成的功能有很多，但这里我只为大家保留了执行定时任务的功能，后续会迭代完整
@@ -243,6 +240,10 @@ public class EmbedServer {
                         TriggerParam triggerParam = GsonTool.fromJson(requestData, TriggerParam.class);
                         //然后交给ExecutorBizImpl对象去执行定时任务
                         return executorBiz.run(triggerParam);
+                        //走到这个分支就意味着要终止任务
+                    case "/kill":
+                        KillParam killParam = GsonTool.fromJson(requestData, KillParam.class);
+                        return executorBiz.kill(killParam);
                     case "/log":
                         //远程访问执行器端日志
                         LogParam logParam = GsonTool.fromJson(requestData, LogParam.class);
@@ -259,7 +260,7 @@ public class EmbedServer {
 
 
         /**
-         * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+         * @author:Halfmoonly
          * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
          * @Date:2023/7/8
          * @Description:该方法就是把执行的定时任务的结果发送到调度中心
@@ -281,7 +282,7 @@ public class EmbedServer {
 
 
         /**
-         * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+         * @author:Halfmoonly
          * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
          * @Date:2023/7/8
          * @Description:下面三个是Netty中入站处理器的方法的回调，在手写Netty中也分别讲解了它们的回调时机，所以，就不再解释了
@@ -313,7 +314,7 @@ public class EmbedServer {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:启动注册线程，然后把执行器注册到调度中心
@@ -324,7 +325,7 @@ public class EmbedServer {
     }
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:销毁注册线程

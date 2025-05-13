@@ -16,7 +16,7 @@ import java.util.Map;
 
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/31
  * @Description:这个类是用来发送报警邮件的，但实际上真正的功能并不在这个类实现，而是在EmailJobAlarm类实现
@@ -38,7 +38,7 @@ public class JobAlarmer implements ApplicationContextAware, InitializingBean {
     }
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/31
      * @Description:该方法会在容器中的bean初始化完毕后被回调
@@ -54,7 +54,7 @@ public class JobAlarmer implements ApplicationContextAware, InitializingBean {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/31
      * @Description:在JobFailMonitorHelper类中被调用到的发送报警邮件的方法

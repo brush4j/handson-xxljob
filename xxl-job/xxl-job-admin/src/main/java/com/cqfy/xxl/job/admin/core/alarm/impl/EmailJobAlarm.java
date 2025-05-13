@@ -19,7 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/31
  * @Description:发送报警邮件的类
@@ -31,7 +31,7 @@ public class EmailJobAlarm implements JobAlarm {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/31
      * @Description:真正发送报警邮件的逻辑
@@ -87,11 +87,7 @@ public class EmailJobAlarm implements JobAlarm {
 
 
 
-    /**
-     * load email job alarm template
-     *  这个是前端要用到的模版
-     * @return
-     */
+    //这个是前端要用到的模版，源码就是这么搞的
     private static final String loadEmailJobAlarmTemplate(){
         String mailBodyTemplate = "<h5>" + I18nUtil.getString("jobconf_monitor_detail") + "：</span>" +
                 "<table border=\"1\" cellpadding=\"3\" style=\"border-collapse:collapse; width:80%;\" >\n" +

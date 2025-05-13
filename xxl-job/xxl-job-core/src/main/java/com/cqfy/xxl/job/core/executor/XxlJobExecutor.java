@@ -8,6 +8,7 @@ import com.cqfy.xxl.job.core.handler.annotation.XxlJob;
 import com.cqfy.xxl.job.core.handler.impl.MethodJobHandler;
 import com.cqfy.xxl.job.core.log.XxlJobFileAppender;
 import com.cqfy.xxl.job.core.server.EmbedServer;
+import com.cqfy.xxl.job.core.thread.JobLogFileCleanThread;
 import com.cqfy.xxl.job.core.thread.JobThread;
 import com.cqfy.xxl.job.core.thread.TriggerCallbackThread;
 import com.cqfy.xxl.job.core.util.IpUtil;
@@ -23,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:执行器启动的入口类，其实是从子类中开始执行，但是子类会调用到父类的start方法，真正启动执行器组件
@@ -48,7 +49,7 @@ public class XxlJobExecutor  {
     private int port;
     //执行器的日志收集地址
     private String logPath;
-    //执行器日志的保留天数，一般为30天
+    //执行器日志的保留天数，一般为30天，在配置文件中设定的
     private int logRetentionDays;
     //下面这些方法都会在用户自己定义的XxlJobConfig类中被调用到
     public void setAdminAddresses(String adminAddresses) {
@@ -78,7 +79,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:执行器的组件终于启动了，这里我删去了几个组件，后续再迭代完整
@@ -93,6 +94,9 @@ public class XxlJobExecutor  {
         //这里的方法就是根据用户配置的调度中心的地址，把用来远程注册的客户端初始化好
         initAdminBizList(adminAddresses, accessToken);
 
+        //该组件的功能是用来清除执行器端的过期日志的
+        JobLogFileCleanThread.getInstance().start(logRetentionDays);
+
         //启动回调执行结果信息给调度中心的组件
         TriggerCallbackThread.getInstance().start();
 
@@ -103,7 +107,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:销毁执行器组件的方法
@@ -127,6 +131,7 @@ public class XxlJobExecutor  {
         }
         //清空缓存jobHandler的Map
         jobHandlerRepository.clear();
+        JobLogFileCleanThread.getInstance().toStop();
         TriggerCallbackThread.getInstance().toStop();
     }
 
@@ -137,7 +142,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:初始化客户端的方法，初始化的客户端是用来向调度中心发送消息的
@@ -175,7 +180,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:启动执行器内嵌的Netty服务器，然后把执行器注册到调度中心
@@ -206,7 +211,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:停止netty服务器运行的方法
@@ -223,7 +228,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:存放IJobHandler对象的Map
@@ -242,7 +247,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:该方法就是用来将用户定义的bean中的每一个定时任务方法都注册到JobHandler的子类对象中的
@@ -306,7 +311,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:缓存JobThread的Map，而每一个定时任务对应着一个ID，也就对应着一个执行这个定时任务的线程
@@ -315,7 +320,7 @@ public class XxlJobExecutor  {
     private static ConcurrentMap<Integer, JobThread> jobThreadRepository = new ConcurrentHashMap<Integer, JobThread>();
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:把定时任务对应的JobThread缓存到jobThreadRepository这个Map中
@@ -339,7 +344,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:从jobThreadRepository这个Map中移除JobThread线程
@@ -358,7 +363,7 @@ public class XxlJobExecutor  {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:Halfmoonly
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:根据定时任务ID，获取对应的JobThread对象

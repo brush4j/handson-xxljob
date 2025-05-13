@@ -1,5 +1,6 @@
 package com.cqfy.xxl.job.admin.controller;
 
+import com.cqfy.xxl.job.admin.core.complete.XxlJobCompleter;
 import com.cqfy.xxl.job.admin.core.exception.XxlJobException;
 import com.cqfy.xxl.job.admin.core.model.XxlJobGroup;
 import com.cqfy.xxl.job.admin.core.model.XxlJobInfo;
@@ -10,6 +11,7 @@ import com.cqfy.xxl.job.admin.dao.XxlJobGroupDao;
 import com.cqfy.xxl.job.admin.dao.XxlJobInfoDao;
 import com.cqfy.xxl.job.admin.dao.XxlJobLogDao;
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
+import com.cqfy.xxl.job.core.biz.model.KillParam;
 import com.cqfy.xxl.job.core.biz.model.LogParam;
 import com.cqfy.xxl.job.core.biz.model.LogResult;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
@@ -31,7 +33,7 @@ import java.util.Map;
 
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/17
  * @Description:获得日志信息的类，这个对对应的就是调度日志界面
@@ -140,37 +142,41 @@ public class JobLogController {
     }
 
 
-    //该方法暂且注释掉，用不上
-//    @RequestMapping("/logKill")
-//    @ResponseBody
-//    public ReturnT<String> logKill(int id){
-//        // base check
-//        XxlJobLog log = xxlJobLogDao.load(id);
-//        XxlJobInfo jobInfo = xxlJobInfoDao.loadById(log.getJobId());
-//        if (jobInfo==null) {
-//            return new ReturnT<String>(500, I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
-//        }
-//        if (ReturnT.SUCCESS_CODE != log.getTriggerCode()) {
-//            return new ReturnT<String>(500, I18nUtil.getString("joblog_kill_log_limit"));
-//        }
-//        ReturnT<String> runResult = null;
-//        try {
-//            ExecutorBiz executorBiz = XxlJobScheduler.getExecutorBiz(log.getExecutorAddress());
-//            runResult = executorBiz.kill(new KillParam(jobInfo.getId()));
-//        } catch (Exception e) {
-//            logger.error(e.getMessage(), e);
-//            runResult = new ReturnT<String>(500, e.getMessage());
-//        }
-//        if (ReturnT.SUCCESS_CODE == runResult.getCode()) {
-//            log.setHandleCode(ReturnT.FAIL_CODE);
-//            log.setHandleMsg( I18nUtil.getString("joblog_kill_log_byman")+":" + (runResult.getMsg()!=null?runResult.getMsg():""));
-//            log.setHandleTime(new Date());
-//            XxlJobCompleter.updateHandleInfoAndFinish(log);
-//            return new ReturnT<String>(runResult.getMsg());
-//        } else {
-//            return new ReturnT<String>(500, runResult.getMsg());
-//        }
-//    }
+    /**
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/8/1
+     * @Description:终止执行器端工作线程的方法
+     */
+    @RequestMapping("/logKill")
+    @ResponseBody
+    public ReturnT<String> logKill(int id){
+        XxlJobLog log = xxlJobLogDao.load(id);
+        XxlJobInfo jobInfo = xxlJobInfoDao.loadById(log.getJobId());
+        if (jobInfo==null) {
+            return new ReturnT<String>(500, I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
+        }
+        if (ReturnT.SUCCESS_CODE != log.getTriggerCode()) {
+            return new ReturnT<String>(500, I18nUtil.getString("joblog_kill_log_limit"));
+        }
+        ReturnT<String> runResult = null;
+        try {
+            ExecutorBiz executorBiz = XxlJobScheduler.getExecutorBiz(log.getExecutorAddress());
+            runResult = executorBiz.kill(new KillParam(jobInfo.getId()));
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            runResult = new ReturnT<String>(500, e.getMessage());
+        }
+        if (ReturnT.SUCCESS_CODE == runResult.getCode()) {
+            log.setHandleCode(ReturnT.FAIL_CODE);
+            log.setHandleMsg( I18nUtil.getString("joblog_kill_log_byman")+":" + (runResult.getMsg()!=null?runResult.getMsg():""));
+            log.setHandleTime(new Date());
+            XxlJobCompleter.updateHandleInfoAndFinish(log);
+            return new ReturnT<String>(runResult.getMsg());
+        } else {
+            return new ReturnT<String>(500, runResult.getMsg());
+        }
+    }
 
     @RequestMapping("/clearLog")
     @ResponseBody
