@@ -3,6 +3,7 @@ package com.cqfy.xxl.job.admin.controller;
 import com.cqfy.xxl.job.admin.controller.annotation.PermissionLimit;
 import com.cqfy.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.cqfy.xxl.job.core.biz.AdminBiz;
+import com.cqfy.xxl.job.core.biz.model.HandleCallbackParam;
 import com.cqfy.xxl.job.core.biz.model.RegistryParam;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
 import com.cqfy.xxl.job.core.util.GsonTool;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author:Halfmoonly
@@ -53,6 +55,11 @@ public class JobApiController {
                 && XxlJobAdminConfig.getAdminConfig().getAccessToken().trim().length()>0
                 && !XxlJobAdminConfig.getAdminConfig().getAccessToken().equals(request.getHeader(XxlJobRemotingUtil.XXL_JOB_ACCESS_TOKEN))) {
             return new ReturnT<String>(ReturnT.FAIL_CODE, "The access token is wrong.");
+        }
+        //判断是不是执行器端回调定时任务执行结果了
+        if ("callback".equals(uri)) {
+            List<HandleCallbackParam> callbackParamList = GsonTool.fromJson(data, List.class, HandleCallbackParam.class);
+            return adminBiz.callback(callbackParamList);
         }
         //判断是不是注册操作
         else if ("registry".equals(uri)) {

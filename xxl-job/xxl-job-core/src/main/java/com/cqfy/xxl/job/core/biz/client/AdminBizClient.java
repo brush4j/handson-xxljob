@@ -2,9 +2,12 @@ package com.cqfy.xxl.job.core.biz.client;
 
 
 import com.cqfy.xxl.job.core.biz.AdminBiz;
+import com.cqfy.xxl.job.core.biz.model.HandleCallbackParam;
 import com.cqfy.xxl.job.core.biz.model.RegistryParam;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
 import com.cqfy.xxl.job.core.util.XxlJobRemotingUtil;
+
+import java.util.List;
 
 /**
  * @author:Halfmoonly
@@ -16,6 +19,7 @@ public class AdminBizClient implements AdminBiz {
 
     public AdminBizClient() {
     }
+
 
     /**
      * @author:Halfmoonly
@@ -38,6 +42,17 @@ public class AdminBizClient implements AdminBiz {
     //访问超时时间
     private int timeout = 3;
 
+
+    /**
+     * @author:Halfmoonly
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/17
+     * @Description:回调定时任务的执行信息给调度中心的方法
+     */
+    @Override
+    public ReturnT<String> callback(List<HandleCallbackParam> callbackParamList) {
+        return XxlJobRemotingUtil.postBody(addressUrl+"api/callback", accessToken, timeout, callbackParamList, String.class);
+    }
 
 
     /**

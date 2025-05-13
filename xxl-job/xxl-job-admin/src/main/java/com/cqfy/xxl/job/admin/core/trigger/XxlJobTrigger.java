@@ -3,16 +3,19 @@ package com.cqfy.xxl.job.admin.core.trigger;
 import com.cqfy.xxl.job.admin.core.conf.XxlJobAdminConfig;
 import com.cqfy.xxl.job.admin.core.model.XxlJobGroup;
 import com.cqfy.xxl.job.admin.core.model.XxlJobInfo;
+import com.cqfy.xxl.job.admin.core.model.XxlJobLog;
 import com.cqfy.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
 import com.cqfy.xxl.job.admin.core.scheduler.XxlJobScheduler;
 import com.cqfy.xxl.job.admin.core.util.I18nUtil;
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
 import com.cqfy.xxl.job.core.biz.model.TriggerParam;
+import com.cqfy.xxl.job.core.util.IpUtil;
 import com.cqfy.xxl.job.core.util.ThrowableUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -53,7 +56,7 @@ public class XxlJobTrigger {
             //设置执行器的任务参数
             jobInfo.setExecutorParam(executorParam);
         }
-        //根据jobGroup获取所有的执行器
+        //同样是根据jobId获取所有的执行器
         XxlJobGroup group = XxlJobAdminConfig.getAdminConfig().getXxlJobGroupDao().load(jobInfo.getJobGroup());
         //这里也有一个小判断，如果用户在web界面输入了执行器的地址，这里会把执行器的地址设置到刚才查询到的执行器中
         //注意，这里我想强调两点，第一，这里以及上面那个设置执行器参数，都是在web界面对任务进行执行一次操作时，才会出现的调用流程
@@ -104,6 +107,18 @@ public class XxlJobTrigger {
     private static void processTrigger(XxlJobGroup group, XxlJobInfo jobInfo, int finalFailRetryCount, TriggerTypeEnum triggerType, int index, int total){
         //得到当前要调度的执行任务的路由策略，默认是没有
         ExecutorRouteStrategyEnum executorRouteStrategyEnum = ExecutorRouteStrategyEnum.match(jobInfo.getExecutorRouteStrategy(), null);
+        //这里就要开始执行和定时任务日志相关的操作了
+        //先创建一个日志对象，用于记录该定时任务执行是的一些信息
+        XxlJobLog jobLog = new XxlJobLog();
+        //记录定时任务的执行器组id
+        jobLog.setJobGroup(jobInfo.getJobGroup());
+        //设置定时任务的id
+        jobLog.setJobId(jobInfo.getId());
+        //设置定时任务的触发时间
+        jobLog.setTriggerTime(new Date());
+        //在这里把定时任务日志保存到数据库中，保存成功之后，定时任务日志的id也就有了
+        XxlJobAdminConfig.getAdminConfig().getXxlJobLogDao().save(jobLog);
+        logger.debug(">>>>>>>>>>> xxl-job trigger start, jobId:{}", jobLog.getId());
         //初始化触发器参数，这里的这个触发器参数，是要在远程调用的另一端，也就是执行器那一端使用的
         TriggerParam triggerParam = new TriggerParam();
         //设置任务id
@@ -114,6 +129,10 @@ public class XxlJobTrigger {
         triggerParam.setExecutorParams(jobInfo.getExecutorParam());
         //定时任务的路由策略设置进去
         triggerParam.setExecutorBlockStrategy(jobInfo.getExecutorBlockStrategy());
+        //设置定时任务的日志id
+        triggerParam.setLogId(jobLog.getId());
+        //设置定时任务的触发时间，这个触发时间就是jobLog刚才设置的那个时间
+        triggerParam.setLogDateTime(jobLog.getTriggerTime().getTime());
         //设置执行模式，一般都是bean模式
         triggerParam.setGlueType(jobInfo.getGlueType());
         //接下来要再次设定远程调用的服务实例的地址
@@ -144,6 +163,39 @@ public class XxlJobTrigger {
         } else {
             triggerResult = new ReturnT<String>(ReturnT.FAIL_CODE, null);
         }
+        //在这里拼接一下触发任务的信息，其实就是web界面的调度备注
+        StringBuffer triggerMsgSb = new StringBuffer();
+        triggerMsgSb.append(I18nUtil.getString("jobconf_trigger_type")).append("：").append(triggerType.getTitle());
+        triggerMsgSb.append("<br>").append(I18nUtil.getString("jobconf_trigger_admin_adress")).append("：").append(IpUtil.getIp());
+        triggerMsgSb.append("<br>").append(I18nUtil.getString("jobconf_trigger_exe_regtype")).append("：")
+                .append( (group.getAddressType() == 0)?I18nUtil.getString("jobgroup_field_addressType_0"):I18nUtil.getString("jobgroup_field_addressType_1") );
+        triggerMsgSb.append("<br>").append(I18nUtil.getString("jobconf_trigger_exe_regaddress")).append("：").append(group.getRegistryList());
+        triggerMsgSb.append("<br>").append(I18nUtil.getString("jobinfo_field_executorRouteStrategy")).append("：").append(executorRouteStrategyEnum.getTitle());
+        //注释的都是暂时用不上的
+//        if (shardingParam != null) {
+//            triggerMsgSb.append("("+shardingParam+")");
+//        }
+        //triggerMsgSb.append("<br>").append(I18nUtil.getString("jobinfo_field_executorBlockStrategy")).append("：").append(blockStrategy.getTitle());
+        triggerMsgSb.append("<br>").append(I18nUtil.getString("jobinfo_field_timeout")).append("：").append(jobInfo.getExecutorTimeout());
+        triggerMsgSb.append("<br>").append(I18nUtil.getString("jobinfo_field_executorFailRetryCount")).append("：").append(finalFailRetryCount);
+        triggerMsgSb.append("<br><br><span style=\"color:#00c0ef;\" > >>>>>>>>>>>"+ I18nUtil.getString("jobconf_trigger_run") +"<<<<<<<<<<< </span><br>")
+                .append((routeAddressResult!=null&&routeAddressResult.getMsg()!=null)?routeAddressResult.getMsg()+"<br><br>":"").append(triggerResult.getMsg()!=null?triggerResult.getMsg():"");
+        //设置执行器地址
+        jobLog.setExecutorAddress(address);
+        //设置执行定时任务的方法名称
+        jobLog.setExecutorHandler(jobInfo.getExecutorHandler());
+        //设置执行参数
+        jobLog.setExecutorParam(jobInfo.getExecutorParam());
+        //jobLog.setExecutorShardingParam(shardingParam);
+        //设置失败重试次数
+        jobLog.setExecutorFailRetryCount(finalFailRetryCount);
+        //设置触发结果码
+        jobLog.setTriggerCode(triggerResult.getCode());
+        //设置触发任务信息，也就是调度备注
+        jobLog.setTriggerMsg(triggerMsgSb.toString());
+        //更新数据库信息
+        XxlJobAdminConfig.getAdminConfig().getXxlJobLogDao().updateTriggerInfo(jobLog);
+        logger.debug(">>>>>>>>>>> xxl-job trigger end, jobId:{}", jobLog.getId());
     }
 
 

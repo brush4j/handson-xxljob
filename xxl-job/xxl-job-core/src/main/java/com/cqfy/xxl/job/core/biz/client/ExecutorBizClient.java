@@ -1,9 +1,7 @@
 package com.cqfy.xxl.job.core.biz.client;
 
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
-import com.cqfy.xxl.job.core.biz.model.IdleBeatParam;
-import com.cqfy.xxl.job.core.biz.model.ReturnT;
-import com.cqfy.xxl.job.core.biz.model.TriggerParam;
+import com.cqfy.xxl.job.core.biz.model.*;
 import com.cqfy.xxl.job.core.util.XxlJobRemotingUtil;
 
 /**
@@ -54,6 +52,18 @@ public class ExecutorBizClient implements ExecutorBiz {
     public ReturnT<String> run(TriggerParam triggerParam) {
         //可以看到，在这里直接用一个工具类用post请求发送消息了
         return XxlJobRemotingUtil.postBody(addressUrl + "run", accessToken, timeout, triggerParam, String.class);
+    }
+
+
+    /**
+     * @author:Halfmoonly
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/17
+     * @Description:调度中心远程调用执行器，获得执行器端的日志信息
+     */
+    @Override
+    public ReturnT<LogResult> log(LogParam logParam) {
+        return XxlJobRemotingUtil.postBody(addressUrl + "log", accessToken, timeout, logParam, LogResult.class);
     }
 
 }

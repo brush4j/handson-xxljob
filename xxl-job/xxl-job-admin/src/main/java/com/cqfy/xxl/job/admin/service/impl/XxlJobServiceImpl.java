@@ -313,7 +313,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 		exists_jobInfo.setChildJobId(jobInfo.getChildJobId());
 		exists_jobInfo.setTriggerNextTime(nextTriggerTime);
 		exists_jobInfo.setUpdateTime(new Date());
-		//跟新定时任务
+		//更新定时任务
 		xxlJobInfoDao.update(exists_jobInfo);
 		return ReturnT.SUCCESS;
 	}
@@ -344,7 +344,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/12
 	 * @Description:启动定时任务，这里启动定时任务，其实就是计算出最新的定时任务可以被调度的时间
-	 * 至于怎么被调度，最有线程去做这件事
+	 * 至于怎么被调度，自有线程去做这件事
 	 */
 	@Override
 	public ReturnT<String> start(int id) {

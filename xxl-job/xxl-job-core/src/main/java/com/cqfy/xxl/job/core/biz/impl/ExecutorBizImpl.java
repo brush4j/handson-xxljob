@@ -1,15 +1,16 @@
 package com.cqfy.xxl.job.core.biz.impl;
 
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
-import com.cqfy.xxl.job.core.biz.model.IdleBeatParam;
-import com.cqfy.xxl.job.core.biz.model.ReturnT;
-import com.cqfy.xxl.job.core.biz.model.TriggerParam;
+import com.cqfy.xxl.job.core.biz.model.*;
 import com.cqfy.xxl.job.core.executor.XxlJobExecutor;
 import com.cqfy.xxl.job.core.glue.GlueTypeEnum;
 import com.cqfy.xxl.job.core.handler.IJobHandler;
+import com.cqfy.xxl.job.core.log.XxlJobFileAppender;
 import com.cqfy.xxl.job.core.thread.JobThread;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.Date;
 
 /**
  * @author:Halfmoonly
@@ -116,5 +117,22 @@ public class ExecutorBizImpl implements ExecutorBiz {
         //等待线程去调用，返回一个结果
         ReturnT<String> pushResult = jobThread.pushTriggerQueue(triggerParam);
         return pushResult;
+    }
+
+
+    /**
+     * @author:Halfmoonly
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/17
+     * @Description:调度中心远程查询执行器端日志的方法
+     */
+    @Override
+    public ReturnT<LogResult> log(LogParam logParam) {
+        //根据定时任务id和触发时间创建文件名
+        String logFileName = XxlJobFileAppender.makeLogFileName(new Date(logParam.getLogDateTim()), logParam.getLogId());
+        //开始从日志文件中读取日志
+        LogResult logResult = XxlJobFileAppender.readLog(logFileName, logParam.getFromLineNum());
+        //返回结果
+        return new ReturnT<LogResult>(logResult);
     }
 }

@@ -12,7 +12,7 @@ public class XxlJobLog {
 
 	//日志id
 	private long id;
-	//执行器id
+	//执行器组id
 	private int jobGroup;
 	//定时任务id
 	private int jobId;
@@ -24,13 +24,13 @@ public class XxlJobLog {
 	private String executorParam;
 	//执行器分片参数
 	private String executorShardingParam;
-	//失败充实次数
+	//失败重试次数
 	private int executorFailRetryCount;
 	//触发器触发时间
 	private Date triggerTime;
 	//触发器任务的响应码
 	private int triggerCode;
-	//触发器任务的具体结果
+	//触发任务信息
 	private String triggerMsg;
 	//定时任务执行时间
 	private Date handleTime;

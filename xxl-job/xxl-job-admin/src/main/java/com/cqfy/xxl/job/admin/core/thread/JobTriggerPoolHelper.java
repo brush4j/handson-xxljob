@@ -105,7 +105,6 @@ public class JobTriggerPoolHelper {
      * 属于是该方法的外层方法
      * 该方法的各个参数分别输任务Id，触发的枚举类型(其实就是手动触发的意思，手动调用该任务，执行一次)，
      * 失败重试次数，分片参数，执行器方法参数，执行器的地址列表
-     * 最后，还是想再解释一下，因为是第一个手写版本，所以很有些参数我们都用不到，但是后面会陆续重构完整
      */
     public void  addTrigger(final int jobId,
                            final TriggerTypeEnum triggerType,

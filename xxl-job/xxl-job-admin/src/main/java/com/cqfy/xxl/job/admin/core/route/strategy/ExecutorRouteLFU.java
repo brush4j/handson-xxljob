@@ -35,7 +35,7 @@ public class ExecutorRouteLFU extends ExecutorRouter {
             //如果value为空，则创建一个Map
             lfuItemMap = new HashMap<String, Integer>();
             //把Map添加到jobLfuMap中
-            jobLfuMap.putIfAbsent(jobId, lfuItemMap);   // 避免重复覆盖
+            jobLfuMap.putIfAbsent(jobId, lfuItemMap);
         }
         //下面开始遍历执行器地址集合
         for (String address: addressList) {

@@ -100,6 +100,7 @@ public class JobRegistryHelper {
 							HashMap<String, List<String>> appAddressMap = new HashMap<String, List<String>>();
 							//这里查处的就是所有没有过期的执行器，同样不用考虑注册类型，是否自动注册或手动录入，对应的sql语句如下
 							//WHERE t.update_time <![CDATA[ > ]]> DATE_ADD(#{nowTime},INTERVAL -#{timeout} SECOND)
+							//就是把小于号改成了大于号而已
 							List<XxlJobRegistry> list = XxlJobAdminConfig.getAdminConfig().getXxlJobRegistryDao().findAll(RegistryConfig.DEAD_TIMEOUT, new Date());
 							if (list != null) {
 								//走到这里说明数据库中存在没有超时的执行器数据

@@ -1,9 +1,7 @@
 package com.cqfy.xxl.job.core.biz;
 
 
-import com.cqfy.xxl.job.core.biz.model.IdleBeatParam;
-import com.cqfy.xxl.job.core.biz.model.ReturnT;
-import com.cqfy.xxl.job.core.biz.model.TriggerParam;
+import com.cqfy.xxl.job.core.biz.model.*;
 
 /**
  * @author:Halfmoonly
@@ -22,6 +20,6 @@ public interface ExecutorBiz {
     //远程调用的方法
     ReturnT<String> run(TriggerParam triggerParam);
 
-
+    public ReturnT<LogResult> log(LogParam logParam);
 
 }

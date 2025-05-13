@@ -8,12 +8,10 @@ import com.cqfy.xxl.job.admin.core.util.I18nUtil;
  * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/4
- * @Description:路由策略枚举类，第一版本中，我们只保留一个枚举对象，仅仅是为了代码不报错
- * 现在还用不到路由策略
+ * @Description:路由策略枚举类
  */
 public enum ExecutorRouteStrategyEnum {
 
-    //选择第一个
     FIRST(I18nUtil.getString("jobconf_route_first"), new ExecutorRouteFirst()),
     //使用最后一个
     LAST(I18nUtil.getString("jobconf_route_last"), new ExecutorRouteLast()),

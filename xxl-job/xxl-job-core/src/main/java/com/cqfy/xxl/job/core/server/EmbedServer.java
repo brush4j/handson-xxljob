@@ -3,6 +3,7 @@ package com.cqfy.xxl.job.core.server;
 import com.cqfy.xxl.job.core.biz.ExecutorBiz;
 import com.cqfy.xxl.job.core.biz.impl.ExecutorBizImpl;
 import com.cqfy.xxl.job.core.biz.model.IdleBeatParam;
+import com.cqfy.xxl.job.core.biz.model.LogParam;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
 import com.cqfy.xxl.job.core.biz.model.TriggerParam;
 import com.cqfy.xxl.job.core.thread.ExecutorRegistryThread;
@@ -242,6 +243,10 @@ public class EmbedServer {
                         TriggerParam triggerParam = GsonTool.fromJson(requestData, TriggerParam.class);
                         //然后交给ExecutorBizImpl对象去执行定时任务
                         return executorBiz.run(triggerParam);
+                    case "/log":
+                        //远程访问执行器端日志
+                        LogParam logParam = GsonTool.fromJson(requestData, LogParam.class);
+                        return executorBiz.log(logParam);
                     default:
                         return new ReturnT<String>(ReturnT.FAIL_CODE, "invalid request, uri-mapping(" + uri + ") not found.");
                 }

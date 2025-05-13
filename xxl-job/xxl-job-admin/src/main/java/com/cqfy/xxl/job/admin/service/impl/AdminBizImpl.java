@@ -1,10 +1,14 @@
 package com.cqfy.xxl.job.admin.service.impl;
 
+import com.cqfy.xxl.job.admin.core.thread.JobCompleteHelper;
 import com.cqfy.xxl.job.admin.core.thread.JobRegistryHelper;
 import com.cqfy.xxl.job.core.biz.AdminBiz;
+import com.cqfy.xxl.job.core.biz.model.HandleCallbackParam;
 import com.cqfy.xxl.job.core.biz.model.RegistryParam;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author:Halfmoonly
@@ -14,6 +18,19 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class AdminBizImpl implements AdminBiz {
+
+
+    /**
+     * @author:Halfmoonly
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/17
+     * @Description:调度中心要调用的方法，把执行器回调的定时任务执行的结果信息收集起来
+     */
+    @Override
+    public ReturnT<String> callback(List<HandleCallbackParam> callbackParamList) {
+        return JobCompleteHelper.getInstance().callback(callbackParamList);
+    }
+
 
     /**
      * @author:Halfmoonly

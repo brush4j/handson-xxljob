@@ -1,8 +1,11 @@
 package com.cqfy.xxl.job.core.biz;
 
 
+import com.cqfy.xxl.job.core.biz.model.HandleCallbackParam;
 import com.cqfy.xxl.job.core.biz.model.RegistryParam;
 import com.cqfy.xxl.job.core.biz.model.ReturnT;
+
+import java.util.List;
 
 /**
  * @author:Halfmoonly
@@ -12,6 +15,14 @@ import com.cqfy.xxl.job.core.biz.model.ReturnT;
  */
 public interface AdminBiz {
 
+
+    /**
+     * @author:Halfmoonly
+     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
+     * @Date:2023/7/17
+     * @Description:回调定时任务的执行信息给调度中心的方法
+     */
+    public ReturnT<String> callback(List<HandleCallbackParam> callbackParamList);
 
     /**
      * @author:Halfmoonly

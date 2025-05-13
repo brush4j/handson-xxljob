@@ -1,6 +1,7 @@
 package com.cqfy.xxl.job.admin.core.scheduler;
 
 import com.cqfy.xxl.job.admin.core.conf.XxlJobAdminConfig;
+import com.cqfy.xxl.job.admin.core.thread.JobCompleteHelper;
 import com.cqfy.xxl.job.admin.core.thread.JobRegistryHelper;
 import com.cqfy.xxl.job.admin.core.thread.JobScheduleHelper;
 import com.cqfy.xxl.job.admin.core.thread.JobTriggerPoolHelper;
@@ -18,8 +19,7 @@ import java.util.concurrent.ConcurrentMap;
  * @author:Halfmoonly
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/2
- * @Description:xxl-job服务端的启动类，在该类的init的方法中会初始化各个组件。在第一个版本中，我们只引入很少的组件
- * 后续会迭代完整
+ * @Description:xxl-job服务端的启动类，在该类的init的方法中会初始化各个组件。
  */
 public class XxlJobScheduler {
 
@@ -42,12 +42,15 @@ public class XxlJobScheduler {
         //初始化注册中心组件，这里是个简易版本，后面会重构到和源码一致
         //现在的版本并没有定时清理过期服务实例的功能
         JobRegistryHelper.getInstance().start();
+
+        //启动调度中心接收执行器回调信息的工作组件
+        JobCompleteHelper.getInstance().start();
+
+
         //初始化任务调度线程，这个线程可以说是xxl-job服务端的核心了
         //注意，大家在理解任务调度的时候，没必要把这个概念搞得特别复杂，所谓调度，就是哪个任务该执行了
         //这个线程就会把该任务提交了去执行，这就是调度的含义，这个线程会一直扫描判断哪些任务应该执行了
-        //这里面会用到时间轮。这里我要再次强调一下，时间轮并不是线程，时间轮本身需要一个配合线程工作的容器
-        //如果学过我的从零带你学Netty这门课，就会明白，时间轮的容器，可以用数组实现，也可以用Map实现
-        //说得更准确点，容器加上工作线程组成了时间轮
+        //这里面会用到时间轮。
         JobScheduleHelper.getInstance().start();
     }
 
@@ -62,6 +65,7 @@ public class XxlJobScheduler {
     public void destroy() throws Exception {
 
         JobScheduleHelper.getInstance().toStop();
+        JobCompleteHelper.getInstance().toStop();
         JobRegistryHelper.getInstance().toStop();
         JobTriggerPoolHelper.toStop();
 
