@@ -9,6 +9,7 @@
 - 第七章对应xxljob-12：分片广播比普通的广播更精细化，但是执行器侧的并发控制留给了程序员
 - 第八章对应xxljob-13：实现了在线编码`Glue`模式，在执行器侧将整个Java文件字节码保存在本地缓存中，被触发的时候取出缓存进一步封装为`GlueJobHandler`推送至工作线程`JobThread`队列
 - 第九章对应xxljob-14：实现了不依赖`SpringBoot`生态的执行器功能，`XxlJobSimpleExecutor`和`FrameLessXxlJobConfig`
+- 第十章对应xxljob-14：在执行器侧工作线程`JobThread`使用`FutureTask`构建子线程，实现任务的超时功能
 
 
 手写xxljob框架采用多分支开发，每个分支都是可运行的程度：
@@ -26,6 +27,7 @@
 - xxljob-12：分片广播比普通的广播更精细化，但是执行器侧的并发控制留给了程序员
 - xxljob-13：实现了在线编码`Glue`模式，在执行器侧将整个`Java`文件字节码保存在本地缓存中，被触发的时候取出缓存进一步封装为`GlueJobHandler`推送至工作线程`JobThread`队列
 - xxljob-14：实现了不依赖`SpringBoot`生态的执行器功能，`XxlJobSimpleExecutor`和`FrameLessXxlJobConfig`
+- xxljob-15：在执行器侧工作线程`JobThread`使用`FutureTask`构建子线程，实现任务的超时功能
 - 更多分支，持续更新中
 
 main分支涵盖以上所有分支功能，全量文档见：[docs](docs)

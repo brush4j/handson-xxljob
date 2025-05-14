@@ -174,6 +174,8 @@ public class XxlJobTrigger {
         triggerParam.setExecutorBlockStrategy(jobInfo.getExecutorBlockStrategy());
         //定时任务的路由策略设置进去
         triggerParam.setExecutorBlockStrategy(jobInfo.getExecutorBlockStrategy());
+        //设置定时任务的超时时间
+        triggerParam.setExecutorTimeout(jobInfo.getExecutorTimeout());
         //设置定时任务的日志id
         triggerParam.setLogId(jobLog.getId());
         //设置定时任务的触发时间，这个触发时间就是jobLog刚才设置的那个时间

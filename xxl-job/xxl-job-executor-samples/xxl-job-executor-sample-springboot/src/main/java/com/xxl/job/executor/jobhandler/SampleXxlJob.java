@@ -57,6 +57,19 @@ public class SampleXxlJob {
         }
 
     }
+
+    /**
+     * 1、超时任务示例（Bean模式）
+     */
+    @XxlJob("demoJobHandlerOutTime")
+    public void demoJobHandlerOutTime() throws Exception {
+        //设置超时10秒
+        Thread.sleep(10000);
+        for (int i = 0; i < 5; i++) {
+            System.out.println("第"+i+"次");
+        }
+        System.out.println("下一次任务开始了！");
+    }
 //
 //
 //    /**
