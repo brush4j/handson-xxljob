@@ -31,7 +31,7 @@ public class XxlJobGroup {
     private List<String> registryList;
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/4
      * @Description:该方法会讲addressList属性中的所有地址转变成list集合
@@ -158,7 +158,7 @@ public class ExecutorRegistryThread {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:启动注册线程
@@ -299,7 +299,7 @@ public class JobRegistryHelper {
 	private volatile boolean toStop = false;
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/4
 	 * @Description:创建并启动上面的线程池
@@ -448,7 +448,7 @@ public class JobRegistryHelper {
 此外还有两个方法，分别响应执行器侧的主动注册，和主动解除注册
 ```java
     	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/4
 	 * @Description:注册执行器的方法，就是这个方法，会一直更新数据库中执行器的信息
@@ -481,7 +481,7 @@ public class JobRegistryHelper {
 	}
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/4
      * @Description:移除过期的执行器地址
