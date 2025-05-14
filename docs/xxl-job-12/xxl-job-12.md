@@ -1,32 +1,18 @@
-package com.cqfy.xxl.job.admin.core.trigger;
+分片广播的功能实现起来十分简单，是在调度中心这一端实现的。
 
-import com.cqfy.xxl.job.admin.core.conf.XxlJobAdminConfig;
-import com.cqfy.xxl.job.admin.core.model.XxlJobGroup;
-import com.cqfy.xxl.job.admin.core.model.XxlJobInfo;
-import com.cqfy.xxl.job.admin.core.model.XxlJobLog;
-import com.cqfy.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
-import com.cqfy.xxl.job.admin.core.scheduler.XxlJobScheduler;
-import com.cqfy.xxl.job.admin.core.util.I18nUtil;
-import com.cqfy.xxl.job.core.biz.ExecutorBiz;
-import com.cqfy.xxl.job.core.biz.model.ReturnT;
-import com.cqfy.xxl.job.core.biz.model.TriggerParam;
-import com.cqfy.xxl.job.core.enums.ExecutorBlockStrategyEnum;
-import com.cqfy.xxl.job.core.util.IpUtil;
-import com.cqfy.xxl.job.core.util.ThrowableUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+简单来说，分片广播就是当定时任务要处理的数据非常多的时候，一个定时任务，或者说一个服务器处理器来太耗时，这时候，就可以让几个部署了相同定时任务的服务器参与进来，每个服务器都处理一部分数据，这样执行任务就会比较高效。
 
-import java.util.Date;
-import java.util.List;
+比如同时五个执行器。在这五个执行器上部署相同的定时任务，让这几个定时任务一起来处理这些数据不就可以了吗？一共有500条数据，那我就让这5个服务器，每一个都处理100条数据，以前用5秒才能处理完这些数据，现在可能只用1秒就处理完了。
 
-/**
- * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
- * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
- * @Date:2023/7/3
- * @Description:该类也是xxl-job中很重要的一个类，job的远程调用就是在该类中进行的，当然不是直接进行，远程调用
- * 到最后，任务还是在执行器那端执行，但是该类会为远程调用做很多必要的辅助性工作，比如选择路由策略，然后选择要执行
- * 任务的执行器的地址。现在这些功能我们都还没有引入，只是用最简单的，选择第一个服务实例地址进行远程调用
- */
+确实，我们用最简单的方法就解决了这个问题，但是，我相信肯定会有朋友觉得困惑。当初我为大家设计xxl-job的调度中心，就是为了避免定时任务重复调度，导致数据混乱。
+
+但现在我好像主动让几个相同的定时任务同时启动了，这么一来，难道就不会出现数据混乱的问题吗？
+
+就比如说，五个定时任务执行相同的逻辑，那怎么能让每个定时任务各自处理100条数据呢，并且这100条数据都是互相独立的，最后更新到数据库时也不会产生数据混乱的问题。
+
+复杂的问题往往可以使用简单的思想来解决，就比如说，如果我给每个定时任务服务器按0到4的顺序编号。每个定时任务服务器的编号信息会从调度中心发送到定时任务这一端，并且定时任务也可以得到这些编号，逻辑就是这么简单，下面，请大家看看在xxl-job中的分片是怎么实现的。请看下面的代码块。
+## 调度中心触发器改造
+```java
 public class XxlJobTrigger {
 
     private static Logger logger = LoggerFactory.getLogger(XxlJobTrigger.class);
@@ -121,23 +107,7 @@ public class XxlJobTrigger {
     }
 
 
-    /**
-     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
-     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
-     * @Date:2023/7/3
-     * @Description:该方法会判断字符串的内容是不是数字
-     */
-    private static boolean isNumeric(String str){
-        try {
-            int result = Integer.valueOf(str);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
-        }
-    }
-
-
-    /**
+        /**
      * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/3
@@ -259,31 +229,61 @@ public class XxlJobTrigger {
     }
 
 
-    /**
-     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
-     * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
-     * @Date:2023/7/4
-     * @Description:该方法内进行远程调用
-     */
-    public static ReturnT<String> runExecutor(TriggerParam triggerParam, String address){
-        ReturnT<String> runResult = null;
-        try {
-            //获取一个用于远程调用的客户端对象，一个地址就对应着一个客户端，为什么说是客户端，因为远程调用的时候，执行器
-            //就成为了服务端，因为执行器要接收来自客户端的调用消息
-            ExecutorBiz executorBiz = XxlJobScheduler.getExecutorBiz(address);
-            //客户端获得之后，就在run方法内进行远程调用了
-            runResult = executorBiz.run(triggerParam);
-        } catch (Exception e) {
-            logger.error(">>>>>>>>>>> xxl-job trigger error, please check if the executor[{}] is running.", address, e);
-            runResult = new ReturnT<String>(ReturnT.FAIL_CODE, ThrowableUtil.toString(e));
-        }
-        //在这里拼接一下远程调用返回的状态码和消息
-        StringBuffer runResultSB = new StringBuffer(I18nUtil.getString("jobconf_trigger_run") + "：");
-        runResultSB.append("<br>address：").append(address);
-        runResultSB.append("<br>code：").append(runResult.getCode());
-        runResultSB.append("<br>msg：").append(runResult.getMsg());
-        runResult.setMsg(runResultSB.toString());
-        return runResult;
-    }
-
+    //其余的方法暂时省略
 }
+```
+
+上面就是分片广播的逻辑，可以看到，分片逻辑是程序内部自动处理好的，就是根据定时任务执行器的数量来自动分片，序号也是从小到大自动分配。
+
+## 执行器任务示例
+另一边而执行器的定时任务中可以获得分片的序号。请看下面一个定时任务的例子
+```java
+    /**
+     * 2、分片广播任务
+     */
+    @XxlJob("shardingJobHandler")
+    public void shardingJobHandler() throws Exception {
+
+        //直接获得分片参数
+        int shardIndex = XxlJobHelper.getShardIndex();
+        int shardTotal = XxlJobHelper.getShardTotal();
+
+        System.out.println("分片执行了！"+shardIndex+shardTotal);
+        XxlJobHelper.log("分片参数：当前分片序号 = {}, 总分片数 = {}", shardIndex, shardTotal);
+
+        // 业务逻辑
+        for (int i = 0; i < shardTotal; i++) {
+            if (i == shardIndex) {
+                XxlJobHelper.log("第 {} 片, 命中分片开始处理", i);
+            } else {
+                XxlJobHelper.log("第 {} 片, 忽略", i);
+            }
+        }
+
+    }
+```
+
+上面是xxl提供的一个分片广播的小例子，虽然没有体现出什么有用的逻辑。但是我可以为大家简单总结一下，就是分片广播的逻辑是在调度中心那一端实现的，调度中心实现的逻辑并不能保证同时调度的这些定时任务不会出现并发问题，要想解决可能出现的并发问题，就要在定时任务中编写具体的业务逻辑时动点脑子，把每个定时任务需要处理的数据分隔开。
+
+逻辑就是这么简单，但究竟怎么实现，就看大家各自的功力了。好了，接下来我们一起来看看在线编码这个功能是如何实现的。
+
+## 本节测试
+
+启动admin服务
+
+启动sample服务
+
+会发现执行器地址已经注册到执行器注册表`xxl_job_registry`中了
+```sql
+id;registry_group;registry_key;registry_value;update_time
+1;EXECUTOR;xxl-job-executor-sample;http://:9999/;2025-05-09 14:07:27
+5;EXECUTOR;xxl-job-executor-sample;http://10.77.182.251:9999/;2025-05-12 10:49:13
+```
+
+本节你可以删除xxl_job_group表中的address_list地址字段值，来验证调度中心能够自动的同步xxl_job_registry执行器的地址并注册到到xxl_job_group
+
+在admin管理页面新增个定时任务，**路由策略选择分片广播**，手动执行一次定时任务，触发的时候用的xxl_job_group中的数据，测试结果在执行器侧打印如下
+
+```shell
+分片执行了！01
+```
