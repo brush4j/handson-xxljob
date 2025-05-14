@@ -3,7 +3,7 @@
 用户在web界面编写的源码也会保存到数据库中，就是通过下面这个类来保存的。请看下面的代码块。
 ```java
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/12
  * @Description:如果定时任务是glue模式，需要在前端页面编写代码的化，这个类就是负责在线编辑定时任务的查找和保存。
@@ -73,7 +73,7 @@ public class JobCodeController {
 那么，当执行器那一端开始执行在线编辑的定时任务时，会进行怎样的操作呢？这就不得不再为执行器引入两个新的类了。首先就是GlueFactory类，请看下面的代码块
 ```java
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/12
  * @Description:运行模式工厂
@@ -167,7 +167,7 @@ public class GlueFactory {
 public class ExecutorBizImpl implements ExecutorBiz {
 
      /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:执行定时任务的方法，这里要再次强调一下，该方法是在用户定义的业务线程池中调用的

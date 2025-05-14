@@ -14,7 +14,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/4
  * @Description:xxl-job用于远程调用的工具类
@@ -27,7 +27,7 @@ public class XxlJobRemotingUtil {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/4
      * @Description:信任该http链接
@@ -65,7 +65,7 @@ public class XxlJobRemotingUtil {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/4
      * @Description:发送post消息

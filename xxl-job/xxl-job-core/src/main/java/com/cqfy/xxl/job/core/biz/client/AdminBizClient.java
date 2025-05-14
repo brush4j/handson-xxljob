@@ -10,7 +10,7 @@ import com.cqfy.xxl.job.core.util.XxlJobRemotingUtil;
 import java.util.List;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:该类就是执行器用来访问调度中心的客户端
@@ -22,7 +22,7 @@ public class AdminBizClient implements AdminBiz {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:构造方法
@@ -44,7 +44,7 @@ public class AdminBizClient implements AdminBiz {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:回调定时任务的执行信息给调度中心的方法
@@ -56,7 +56,7 @@ public class AdminBizClient implements AdminBiz {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:调用工具类发送post请求，访问调度中心，这个方法时将执行器注册到调度中心的方法
@@ -67,7 +67,7 @@ public class AdminBizClient implements AdminBiz {
     }
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:这个方法是通知调度中心，把该执行器移除的方法

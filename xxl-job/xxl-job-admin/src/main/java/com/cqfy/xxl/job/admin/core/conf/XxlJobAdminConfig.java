@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import java.util.Arrays;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/1
  * @Description:这个类可以说是服务端的启动入口，该类实现了Spring的InitializingBean接口，所以该类中的
@@ -49,7 +49,7 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
     }
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/1
      * @Description:当该类的对象被销毁的时候，会调用该方法
@@ -63,7 +63,7 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
     }
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/1
      * @Description:下面就是一些简单的属性注入，spring为我们做的
@@ -90,7 +90,7 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
     private int logretentiondays;
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/1
      * @Description:各个dao注入到这里
@@ -114,7 +114,7 @@ public class XxlJobAdminConfig implements InitializingBean, DisposableBean {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/1
      * @Description:下面都是一些简单的get方法，用来得到刚才被注入的属性

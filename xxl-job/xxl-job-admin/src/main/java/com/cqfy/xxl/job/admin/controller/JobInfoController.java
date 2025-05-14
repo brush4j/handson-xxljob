@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/3
  * @Description:该类对应的是jobInfo这个前端页面，其实就是任务管理页面，对这个页面操作的方法，都在这个类中了
@@ -50,7 +50,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:查询该界面需要的所有数据
@@ -75,7 +75,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:根据用户角色查找执行器的方法
@@ -103,7 +103,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:校验当前用户是否有某个执行器的权限
@@ -117,7 +117,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:分页查询定时任务
@@ -132,7 +132,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:新增一个定时任务
@@ -145,7 +145,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:更新定时任务
@@ -158,7 +158,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:删除定时任务
@@ -171,7 +171,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:停止定时任务
@@ -184,7 +184,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:启动定时任务
@@ -197,7 +197,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:只执行一次定时任务
@@ -217,7 +217,7 @@ public class JobInfoController {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/11
 	 * @Description:获取任务下一次的执行时间

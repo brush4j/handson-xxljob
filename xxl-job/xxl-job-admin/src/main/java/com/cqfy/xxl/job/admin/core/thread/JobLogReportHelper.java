@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/8/1
  * @Description:该组件的功能也很简答，就是统计定时任务日志的信息，成功失败次数等等
@@ -35,7 +35,7 @@ public class JobLogReportHelper {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/8/1
      * @Description:启动该组件的方法
@@ -205,7 +205,7 @@ public class JobLogReportHelper {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/8/1
      * @Description:停止该组件的方法

@@ -12,7 +12,7 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/16
  * @Description:哈希一执行路由策略
@@ -23,7 +23,7 @@ public class ExecutorRouteConsistentHash extends ExecutorRouter {
     private static int VIRTUAL_NODE_NUM = 100;
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/16
      * @Description:md5散列的方式计算hash值。这个是源码中的注释，我复制过来了。如果大家感兴趣的话，可以看看下面这个方法
@@ -54,7 +54,7 @@ public class ExecutorRouteConsistentHash extends ExecutorRouter {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/16
      * @Description:这个方法的整体逻辑其实很简单，就是先计算每一个执行器地址的hash值，然后在计算定时任务id的hash值
