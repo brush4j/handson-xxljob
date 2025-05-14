@@ -17,7 +17,7 @@ spring.mail.properties.mail.smtp.socketFactory.class=javax.net.ssl.SSLSocketFact
 而这些信息定义好之后，调度中心当然还要引入邮件报警的组件，才能真正实现报警的功能。具体要引入的类就是下面几个。请看下面的代码块。
 ```java
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/31
  * @Description:这个类是用来发送报警邮件的，但实际上真正的功能并不在这个类实现，而是在EmailJobAlarm类实现
@@ -39,7 +39,7 @@ public class JobAlarmer implements ApplicationContextAware, InitializingBean {
     }
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/31
      * @Description:该方法会在容器中的bean初始化完毕后被回调
@@ -55,7 +55,7 @@ public class JobAlarmer implements ApplicationContextAware, InitializingBean {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/31
      * @Description:在JobFailMonitorHelper类中被调用到的发送报警邮件的方法
@@ -91,7 +91,7 @@ public class JobAlarmer implements ApplicationContextAware, InitializingBean {
 接下来就是具体的发送邮件警报的EmailJobAlarm类。
 ```java
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/31
  * @Description:发送报警邮件的类
@@ -103,7 +103,7 @@ public class EmailJobAlarm implements JobAlarm {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/31
      * @Description:真正发送报警邮件的逻辑
@@ -215,7 +215,7 @@ public class JobFailMonitorHelper {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/31
      * @Description:启动该组件的方法
@@ -311,7 +311,7 @@ public class JobFailMonitorHelper {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/31
      * @Description:终止组件的方法
