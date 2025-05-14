@@ -278,7 +278,7 @@ public class XxlJobFileAppender {
 	private static String glueSrcPath = logBasePath.concat("/gluesource");
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:初始化存储日志文件路径的方法，非常简单，就不细讲了
@@ -310,7 +310,7 @@ public class XxlJobFileAppender {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:该方法会根据定时任务的触发时间和其对应的日志id创造一个文件名，这个日志id是在调度中心就创建好的
@@ -333,7 +333,7 @@ public class XxlJobFileAppender {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:把日志记录到本地的日志文件中
@@ -375,7 +375,7 @@ public class XxlJobFileAppender {
 	}
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:读取本地的日志文件内容，这个方法虽然有点长，但都是常规逻辑，就是最基础的读取文件的操作
@@ -424,7 +424,7 @@ public class XxlJobHelper {
 
 
      /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:存储定时任务日志的入口方法
@@ -442,7 +442,7 @@ public class XxlJobHelper {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:把定时任务的日志存储到日志文件中的方法
@@ -803,7 +803,7 @@ public class TriggerCallbackThread {
     }
 
      /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:回调定时任务的执行信息给调度中心的方法
@@ -852,7 +852,7 @@ public class TriggerCallbackThread {
 调度中心负责处理回调结果的是JobCompleteHelper新的组件
 ```java
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/17
  * @Description:调度中心接收执行器回调信息的工作组件
@@ -875,7 +875,7 @@ public class JobCompleteHelper {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:启动该组件
@@ -980,7 +980,7 @@ public class JobCompleteHelper {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:处理回调信息的方法
@@ -1003,7 +1003,7 @@ public class JobCompleteHelper {
 
 
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:真正处理回调信息的方法
@@ -1046,7 +1046,7 @@ callbackThreadPool线程池负责把执行器发送回来的定时任务执行�
 整个操作就是在上看代码块的callback方法内执行的，而在callback方法中，又会调用到该类的被private修饰的callback方法。就是在这个callback方法中，会执行下面的几行核心代码。请看下面的代码块。
 ```java
 	/**
-	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+	 * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/17
 	 * @Description:真正处理回调信息的方法
