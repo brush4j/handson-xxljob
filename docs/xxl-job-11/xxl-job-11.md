@@ -27,7 +27,7 @@ public class JobLogFileCleanThread {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/8/1
      * @Description:启动该组件的方法
@@ -116,7 +116,7 @@ public class JobLogFileCleanThread {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/8/1
      * @Description:终止组件运行的方法
@@ -153,7 +153,7 @@ xxl-job中给出了三种阻塞策略的选择，
 具体的实现逻辑就在ExecutorBizImpl类的run方法中，请看下面的枚举类。
 ```java
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/12
  * @Description:阻塞处理策略
@@ -197,7 +197,7 @@ public enum ExecutorBlockStrategyEnum {
 接着就是ExecutorBizImpl类。这个类在这一章根据阻塞策略重构了。
 ```java
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:该类就是在执行器段进行定时任务调用的类
@@ -213,7 +213,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 
     
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:执行定时任务的方法，这里要再次强调一下，该方法是在用户定义的业务线程池中调用的
@@ -306,7 +306,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 这个操作实际上是从调度中心那边发起的，调度中心想结束某个定时任务的时候，就会在JobLogController类的logKill方法中发起远程调用，终止在执行器这一端执行的定时任务。说是远程调用，实际上仍然是通过http协议发送消息。请看下面代码块。
 ```java
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/17
  * @Description:获得日志信息的类，这个对对应的就是调度日志界面
@@ -320,7 +320,7 @@ public class JobLogController {
     //其他内容暂时省略
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/8/1
      * @Description:终止执行器端工作线程的方法
@@ -365,7 +365,7 @@ public class JobLogController {
 该功能也是在执行器端的ExecutorBizImpl类中实现的。
 ```java
 /**
- * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:该类就是在执行器段进行定时任务调用的类

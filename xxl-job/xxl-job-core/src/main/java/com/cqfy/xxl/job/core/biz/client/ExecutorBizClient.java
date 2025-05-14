@@ -56,7 +56,7 @@ public class ExecutorBizClient implements ExecutorBiz {
 
 
     /**
-     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
+     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/8/1
      * @Description:远程调用终止任务的方法
