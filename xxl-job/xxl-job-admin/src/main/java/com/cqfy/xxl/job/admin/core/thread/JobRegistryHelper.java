@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.concurrent.*;
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/4
  * @Description:该组件会初始化和注册中心相关的线程，大家可以想一想，执行器要注册到服务端，这些工作肯定就需要专门
@@ -44,7 +44,7 @@ public class JobRegistryHelper {
 	private volatile boolean toStop = false;
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/4
 	 * @Description:创建并启动上面的线程池
@@ -186,7 +186,7 @@ public class JobRegistryHelper {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/4
 	 * @Description:关闭线程池的方法
@@ -201,7 +201,7 @@ public class JobRegistryHelper {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/4
 	 * @Description:注册执行器的方法
@@ -235,7 +235,7 @@ public class JobRegistryHelper {
 
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/4
 	 * @Description:移除过期的执行器地址
@@ -264,7 +264,7 @@ public class JobRegistryHelper {
 	}
 
 	/**
-	 * @author:Halfmoonly
+	 * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
 	 * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
 	 * @Date:2023/7/4
 	 * @Description:这个方法在源码中就是空的。。作者也没想好要怎么弄呢。

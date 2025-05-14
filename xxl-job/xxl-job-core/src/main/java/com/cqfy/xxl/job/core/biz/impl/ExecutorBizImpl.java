@@ -4,8 +4,10 @@ import com.cqfy.xxl.job.core.biz.ExecutorBiz;
 import com.cqfy.xxl.job.core.biz.model.*;
 import com.cqfy.xxl.job.core.enums.ExecutorBlockStrategyEnum;
 import com.cqfy.xxl.job.core.executor.XxlJobExecutor;
+import com.cqfy.xxl.job.core.glue.GlueFactory;
 import com.cqfy.xxl.job.core.glue.GlueTypeEnum;
 import com.cqfy.xxl.job.core.handler.IJobHandler;
+import com.cqfy.xxl.job.core.handler.impl.GlueJobHandler;
 import com.cqfy.xxl.job.core.log.XxlJobFileAppender;
 import com.cqfy.xxl.job.core.thread.JobThread;
 import org.slf4j.Logger;
@@ -14,7 +16,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Date;
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:该类就是在执行器段进行定时任务调用的类
@@ -25,7 +27,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/14
      * @Description:心跳检测方法
@@ -37,7 +39,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/14
      * @Description:判断调度中心调度的定时任务是否在执行器对应的任务线程的队列中
@@ -61,7 +63,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
     }
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:执行定时任务的方法，这里要再次强调一下，该方法是在用户定义的业务线程池中调用的
@@ -101,6 +103,27 @@ public class ExecutorBizImpl implements ExecutorBiz {
                     //走到这里如果jobHandler仍然为null，那只有一个原因，就是执行器这一端根本就没有对应的定时任务
                     //通过执行器的名字根本从jobHandlerRepository这个Map中找不到要被执行的定时任务
                     return new ReturnT<String>(ReturnT.FAIL_CODE, "job handler [" + triggerParam.getExecutorHandler() + "] not found.");
+                }
+            }
+        } else if (GlueTypeEnum.GLUE_GROOVY == glueTypeEnum) {
+            //走到这里，说明是glue模式，在线编辑代码然后执行的
+            //注意，这时候运行的事glue模式，就不能再使用MethodJobHandler了反射执行定时任务了，应该使用GlueJobHandler来执行任务
+            //所以下面会先判断GlueJobHandler中的gule的更新时间，和本次要执行的任务的更新时间是否相等，如果不想等说明glue的源码可能改变了，要重新
+            //创建handler和对应的工作线程
+            if (jobThread != null &&
+                    !(jobThread.getHandler() instanceof GlueJobHandler
+                            && ((GlueJobHandler) jobThread.getHandler()).getGlueUpdatetime()==triggerParam.getGlueUpdatetime() )) {
+                removeOldReason = "change job source or glue type, and terminate the old job thread.";
+                jobThread = null;
+                jobHandler = null;
+            }
+            if (jobHandler == null) {
+                try {//下面就可以在创建新的handler了
+                    IJobHandler originJobHandler = GlueFactory.getInstance().loadNewInstance(triggerParam.getGlueSource());
+                    jobHandler = new GlueJobHandler(originJobHandler, triggerParam.getGlueUpdatetime());
+                } catch (Exception e) {
+                    logger.error(e.getMessage(), e);
+                    return new ReturnT<String>(ReturnT.FAIL_CODE, e.getMessage());
                 }
             }
         }
@@ -160,7 +183,7 @@ public class ExecutorBizImpl implements ExecutorBiz {
     }
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/17
      * @Description:调度中心远程查询执行器端日志的方法

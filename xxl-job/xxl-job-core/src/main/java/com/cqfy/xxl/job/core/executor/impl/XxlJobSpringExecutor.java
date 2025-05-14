@@ -1,6 +1,7 @@
 package com.cqfy.xxl.job.core.executor.impl;
 
 import com.cqfy.xxl.job.core.executor.XxlJobExecutor;
+import com.cqfy.xxl.job.core.glue.GlueFactory;
 import com.cqfy.xxl.job.core.handler.annotation.XxlJob;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/8
  * @Description:该类就是执行器这一点服务开始执行的入口。该类中的afterSingletonsInstantiated方法会在IOC容器中
@@ -29,7 +30,7 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:执行器启动的入口，在该方法内，会把用户定义的定时任务，也就是加了@XxlJob注解的方法，注册到IJobHandler对象中
@@ -42,6 +43,9 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
         //该类实现的ApplicationContextAware接口帮忙注入的，这个是Spring的基础知识，想必大家应该都清楚
         //这所以需要它，是因为ApplicationContextAware可以得到所有初始化好的单例bean
         initJobHandlerMethodRepository(applicationContext);
+
+        //创建glue工厂，默认使用Spring模式的工厂
+        GlueFactory.refreshInstance(1);
 
         //在这里调用父类的方法启动了执行器
         try {
@@ -62,7 +66,7 @@ public class XxlJobSpringExecutor extends XxlJobExecutor implements ApplicationC
 
 
     /**
-     * @author:Halfmoonly
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/8
      * @Description:该方法会把用户定义的所有定时任务注册到IJobHandler对象中，其实是MethodJobHandler对象

@@ -33,7 +33,7 @@ import java.util.Map;
 
 
 /**
- * @author:Halfmoonly
+ * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyang。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/7/17
  * @Description:获得日志信息的类，这个对对应的就是调度日志界面
@@ -143,7 +143,7 @@ public class JobLogController {
 
 
     /**
-     * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
+     * @author:B站UP主陈清风扬，从零带你写框架系列教程的作者，个人微信号：chenqingfengyangjj。
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/8/1
      * @Description:终止执行器端工作线程的方法
