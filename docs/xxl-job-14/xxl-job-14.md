@@ -176,9 +176,26 @@ public class FramelessApplication {
     }
 
 }
-
 ```
 
+可以看到[xxl-job-executor-sample-frameless](../../xxl-job/xxl-job-executor-samples/xxl-job-executor-sample-frameless)中并没有依赖spring基础组件了
+
+## 本节测试
+
+启动admin服务
+
+启动sample服务
+
+会发现执行器地址已经注册到执行器注册表`xxl_job_registry`中了
+```sql
+id;registry_group;registry_key;registry_value;update_time
+1;EXECUTOR;xxl-job-executor-sample;http://:9999/;2025-05-09 14:07:27
+5;EXECUTOR;xxl-job-executor-sample;http://10.77.182.251:9999/;2025-05-12 10:49:13
+```
+
+本节你可以删除xxl_job_group表中的address_list地址字段值，来验证调度中心能够自动的同步xxl_job_registry执行器的地址并注册到到xxl_job_group
+
+手动执行一次demoJobHandler
 
 ```shell
 beat at:0
