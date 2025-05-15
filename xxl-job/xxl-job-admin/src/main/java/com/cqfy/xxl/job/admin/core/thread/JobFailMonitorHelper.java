@@ -20,8 +20,6 @@ public class JobFailMonitorHelper {
     public static JobFailMonitorHelper getInstance(){
         return instance;
     }
-
-
     //处理失败任务告警的线程
     private Thread monitorThread;
     //线程是否停止工作
@@ -66,7 +64,7 @@ public class JobFailMonitorHelper {
                                 //			`alarm_status` = #{newAlarmStatus}
                                 //		WHERE `id`= #{logId} AND `alarm_status` = #{oldAlarmStatus}
                                 //	</update>
-                                //在这里把XxlJobLog的alarmStatus修改为-1，-1就是锁定状态，这里大家其实就可以把这个-1看成乐观锁
+                                //在这里把XxlJobLog的alarmStatus修改为-1，-1就是锁定状态，这里大家其实就可以把这个-1看成CAS的条件
                                 //这一条是源码中的注释，我搬运到这里了。告警状态：0-默认、-1=锁定状态、1-无需告警、2-告警成功、3-告警失败
                                 int lockRet = XxlJobAdminConfig.getAdminConfig().getXxlJobLogDao().updateAlarmStatus(failLogId, 0, -1);
                                 if (lockRet < 1) {

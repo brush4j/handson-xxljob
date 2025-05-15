@@ -36,7 +36,6 @@ public class JobApiController {
      * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
      * @Date:2023/7/11
      * @Description:该方法就是执行注册执行器的方法，执行器那一端会访问下面这个接口，进行注册
-     * 其实该方法内还有其他功能，这里暂时只引入注册功能
      */
     @RequestMapping("/{uri}")
     @ResponseBody

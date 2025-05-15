@@ -11,7 +11,7 @@ import java.util.List;
 
 
 /**
- * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：。
+ * @author:B站UP主九九打码，从零带你写框架系列教程的作者，个人微信号：jj。
  * @Description:系列教程目前包括手写Netty，XXL-JOB，Spring，RocketMq，Javac，JVM等课程。
  * @Date:2023/8/2
  * @Description:不依赖SpringBoot的执行器

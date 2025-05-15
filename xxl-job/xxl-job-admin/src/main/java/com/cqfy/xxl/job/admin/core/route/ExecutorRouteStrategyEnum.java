@@ -12,6 +12,7 @@ import com.cqfy.xxl.job.admin.core.util.I18nUtil;
  */
 public enum ExecutorRouteStrategyEnum {
 
+    //使用第一个
     FIRST(I18nUtil.getString("jobconf_route_first"), new ExecutorRouteFirst()),
     //使用最后一个
     LAST(I18nUtil.getString("jobconf_route_last"), new ExecutorRouteLast()),

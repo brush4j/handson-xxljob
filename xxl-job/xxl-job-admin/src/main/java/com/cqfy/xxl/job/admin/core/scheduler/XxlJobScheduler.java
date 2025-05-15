@@ -124,9 +124,7 @@ public class XxlJobScheduler {
             //如果有就直接返回
             return executorBiz;
         }
-        //如果没有就创建一个客户端，然后存放到Map中，我现在是根据最新版本的源码来迭代手写代码的
-        //但是，在旧版本，也就是2.0.2版本之前的版本，在xxl-job客户端，也就是执行器实例中，是用jetty进行通信的
-        //在2.0.2版本之后，将jetty改成了netty，这个大家了解一下即可
+        //如果没有就创建一个客户端，然后存放到Map中
         //这时候，本来作为客户端的执行器，在使用Netty构建了服务端后，又拥有服务端的身份了
         executorBiz = new ExecutorBizClient(address, XxlJobAdminConfig.getAdminConfig().getAccessToken());
         //把创建好的客户端放到Map中

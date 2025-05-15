@@ -172,8 +172,6 @@ public class XxlJobTrigger {
         triggerParam.setExecutorParams(jobInfo.getExecutorParam());
         //把阻塞策略设置进去
         triggerParam.setExecutorBlockStrategy(jobInfo.getExecutorBlockStrategy());
-        //定时任务的路由策略设置进去
-        triggerParam.setExecutorBlockStrategy(jobInfo.getExecutorBlockStrategy());
         //设置定时任务的超时时间
         triggerParam.setExecutorTimeout(jobInfo.getExecutorTimeout());
         //设置定时任务的日志id

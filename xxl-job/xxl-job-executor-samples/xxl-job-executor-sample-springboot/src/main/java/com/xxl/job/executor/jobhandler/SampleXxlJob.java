@@ -27,10 +27,10 @@ public class SampleXxlJob {
      */
     @XxlJob("demoJobHandler")
     public void demoJobHandler() throws Exception {
+        System.out.println("demoJobHandler！");
         for (int i = 0; i < 5; i++) {
             System.out.println("第"+i+"次");
         }
-        System.out.println("下一次任务开始了！");
     }
 
 
@@ -59,7 +59,7 @@ public class SampleXxlJob {
     }
 
     /**
-     * 1、超时任务示例（Bean模式）
+     * 3、超时任务示例（Bean模式）
      */
     @XxlJob("demoJobHandlerOutTime")
     public void demoJobHandlerOutTime() throws Exception {
@@ -69,6 +69,28 @@ public class SampleXxlJob {
             System.out.println("第"+i+"次");
         }
         System.out.println("下一次任务开始了！");
+    }
+
+    /**
+     * 4、子任务示例（Bean模式）
+     */
+    @XxlJob("fatherHandler")
+    public void fatherHandler() throws Exception {
+        System.out.println("fatherHandler！");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("第"+i+"次");
+        }
+    }
+
+    /**
+     * 5、子任务示例（Bean模式）
+     */
+    @XxlJob("childHandler")
+    public void childHandler() throws Exception {
+        System.out.println("我是fatherHandler的子任务：childHandler！");
+        for (int i = 0; i < 5; i++) {
+            System.out.println("第"+i+"次");
+        }
     }
 //
 //
